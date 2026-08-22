@@ -1780,7 +1780,6 @@ function renderTheme(t){
     '<button data-sec="s-synth">Synthèse</button></div></div>'+
   '<div class="t-body">'+
     '<section class="chapter" id="s-idees"><div class="rolehead lfi"><span class="pill">&#9679; Ce que propose LFI</span></div>'+
-    '<p class="roledesc">Les grandes idées, puis chaque mesure — cliquez pour ouvrir sa fiche (contexte avec exemples, objectif, reproches, réponse de LFI, chiffrage, sources).</p>'+
     '<div class="prose">'+t.idees.map(function(p){return '<p>'+P(p)+'</p>'}).join('')+'</div>'+
     '<div class="mgrid">'+t.measures.map(function(m){
       return '<button class="mcard" onclick="showMeasure(\''+t.id+'\',\''+m.id+'\')"><span class="mk">'+(m.kind==='obstacle'?'Verrou':'Mesure')+'</span><h4>'+m.title+'</h4><p>'+P(m.short)+'</p><span class="open">Voir le détail <span class="ar">&#8594;</span></span></button>';
