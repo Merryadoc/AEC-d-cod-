@@ -1785,14 +1785,12 @@ function renderTheme(t){
       return '<button class="mcard" onclick="showMeasure(\''+t.id+'\',\''+m.id+'\')"><span class="mk">'+(m.kind==='obstacle'?'Verrou':'Mesure')+'</span><h4>'+m.title+'</h4><p>'+P(m.short)+'</p><span class="open">Voir le détail <span class="ar">&#8594;</span></span></button>';
     }).join('')+'</div>'+etatHTML+'</section>'+
     '<section class="chapter" id="s-chiffres"><div class="rolehead chf"><span class="pill">&#9679; Ce que disent les chiffres</span></div>'+
-    '<p class="roledesc">Le chiffrage de LFI face aux évaluateurs indépendants. Montants en ordres de grandeur, aux méthodes discutées ; sources et dates indiquées.</p>'+
     '<div class="ledger">'+t.chiffres.rows.map(function(r){
       return '<div class="lrow"><div class="lcell l"><span class="lab">Mesure</span>'+P(r.mesure)+
         '<div style="margin-top:10px"><span class="fig">'+r.lfi+'</span><br><span class="lab" style="color:var(--lfi-d);margin-top:5px">chiffrage LFI / NFP</span></div></div>'+
         '<div class="lcell"><div class="evals">'+r.evals.map(function(e){return '<div class="eval"><span class="src">'+e.src+'</span>'+e.val+'</div>'}).join('')+'</div></div></div>';
     }).join('')+'<div class="lnote">'+P(t.chiffres.note)+'</div></div></section>'+
     '<section class="chapter" id="s-opp"><div class="rolehead opp"><span class="pill">&#9679; Ce qu\'on peut opposer</span></div>'+
-    '<p class="roledesc">Les projets des autres partis, puis les angles morts — en distinguant les obstacles factuels (juridiques, budgétaires) des critiques politiques.</p>'+
     '<div class="oppgrid"><div class="oppcard rn"><div class="p">Rassemblement National</div><p>'+P(t.opp.rn)+'</p></div>'+
     '<div class="oppcard hor"><div class="p">Horizons</div><p>'+P(t.opp.hor)+'</p></div>'+
     '<div class="oppcard ps"><div class="p">Parti Socialiste</div><p>'+P(t.opp.ps)+'</p></div></div>'+
