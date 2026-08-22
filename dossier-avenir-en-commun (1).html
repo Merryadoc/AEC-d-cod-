@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L'Avenir en commun, décodé — dossier interactif</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --lfi:#7C3AED; --lfi-d:#5B21B6; --lfi-wash:#F3EAFE;
+  --chf:#DC2626; --chf-d:#991B1B; --chf-wash:#FCEBEB;
+  --opp:#2563EB; --opp-d:#1E40AF; --opp-wash:#E8EFFE;
+  --rn:#1E3A8A; --hor:#0F766E; --ps:#BE185D;
+  --ink:#161421; --ink-soft:#4A4658; --ink-faint:#7A7688;
+  --bg:#F6F4EF; --card:#FFFFFF; --rule:#E4E0D6;
+  --flag:#B45309; --flag-wash:#FBF0DD;
+  --serif:"Newsreader",Georgia,serif; --sans:"Inter",system-ui,sans-serif; --mono:"IBM Plex Mono",monospace;
+  --theme:#0F766E; --theme-wash:#E7F1EF;
+  --wrap:1440px; --pad:clamp(20px,4vw,72px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--opp-d)}
+::selection{background:var(--lfi-wash)}
+:focus-visible{outline:3px solid var(--theme);outline-offset:2px;border-radius:3px}
+img{max-width:100%}
+
+.topbar{position:sticky;top:0;z-index:60;background:rgba(246,244,239,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule)}
+.topbar-in{max-width:var(--wrap);margin:0 auto;padding:12px var(--pad);display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{font-family:var(--mono);font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);cursor:pointer;background:none;border:0;padding:0}
+.brand b{color:var(--ink)}
+.topnav{display:flex;gap:6px;flex-wrap:wrap}
+.topnav button{font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);background:none;border:1px solid transparent;border-radius:999px;padding:7px 13px;cursor:pointer;transition:.18s}
+.topnav button:hover{color:var(--ink);border-color:var(--rule)}
+.topnav button.on{color:#fff;background:var(--ink);border-color:var(--ink)}
+
+.view{display:none}
+.view.on{display:block;animation:fade .45s ease both}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--pad)}
+.roletag{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;display:inline-flex;align-items:center;gap:8px}
+.dot{width:10px;height:10px;border-radius:50%;flex:none}
+
+.hero{padding:72px 0 40px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:
+  radial-gradient(1200px 500px at 10% -10%, #EAD9FB 0%, transparent 55%),
+  radial-gradient(1000px 500px at 100% 0%, #FBD9DE 0%, transparent 50%),
+  radial-gradient(900px 600px at 60% 120%, #D3E4FD 0%, transparent 55%);
+  opacity:.75;z-index:-1}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--flag);margin:0 0 22px}
+.hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.6rem,7vw,5.4rem);line-height:1.02;letter-spacing:-.015em;margin:0;max-width:16ch}
+.hero h1 .u{background:linear-gradient(transparent 62%, var(--lfi-wash) 62%);padding:0 .05em}
+.hero .lede{font-family:var(--serif);font-size:clamp(1.2rem,2.3vw,1.6rem);color:var(--ink-soft);max-width:44ch;margin:28px 0 0}
+
+.colorkey{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:46px 0 0}
+.ck{background:var(--card);border:1px solid var(--rule);border-top:4px solid;border-radius:12px;padding:20px 22px}
+.ck.v{border-top-color:var(--lfi)} .ck.r{border-top-color:var(--chf)} .ck.b{border-top-color:var(--opp)}
+.ck h4{margin:0 0 6px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.ck.v h4{color:var(--lfi-d)} .ck.r h4{color:var(--chf-d)} .ck.b h4{color:var(--opp-d)}
+.ck p{margin:0;font-size:14.5px;color:var(--ink-soft);line-height:1.5}
+
+.editnote{margin:26px 0 0;padding:18px 22px;background:var(--flag-wash);border:1px solid #ECD9B4;border-radius:12px;max-width:74ch}
+.editnote .t{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--flag);display:block;margin-bottom:7px}
+.editnote p{margin:0;font-size:14.5px;color:#6b5426}
+
+.sec-title{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin:64px 0 24px;flex-wrap:wrap}
+.sec-title h2{font-family:var(--serif);font-weight:500;font-size:1.8rem;margin:0}
+.sec-title span{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint)}
+
+.themegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px;padding-bottom:80px}
+.tcard{--c:#0F766E;background:var(--card);border:1px solid var(--rule);border-radius:16px;padding:0;cursor:pointer;text-align:left;font:inherit;color:inherit;overflow:hidden;transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column}
+.tcard:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(20,15,30,.13)}
+.tcard .band{background:var(--c);color:#fff;padding:18px 22px;display:flex;align-items:center;justify-content:space-between}
+.tcard .band .n{font-family:var(--mono);font-size:13px;letter-spacing:.15em;opacity:.9}
+.tcard .band .ar{font-size:20px;transition:transform .2s}
+.tcard:hover .band .ar{transform:translateX(5px)}
+.tcard .body{padding:20px 22px 24px;display:flex;flex-direction:column;gap:10px;flex:1}
+.tcard h3{font-family:var(--serif);font-weight:500;font-size:1.5rem;line-height:1.12;margin:0}
+.tcard p{margin:0;font-size:14.5px;color:var(--ink-soft);line-height:1.5}
+.tcard .cnt{margin-top:auto;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint)}
+
+#v-theme{background:var(--theme-wash);min-height:100vh}
+.t-hero{background:var(--theme);color:#fff;padding:56px 0 46px}
+.t-hero .in{max-width:var(--wrap);margin:0 auto;padding:0 var(--pad)}
+.t-back{background:rgba(255,255,255,.16);color:#fff;border:0;border-radius:999px;padding:8px 15px;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;margin-bottom:26px}
+.t-back:hover{background:rgba(255,255,255,.28)}
+.t-num{font-family:var(--mono);font-size:13px;letter-spacing:.2em;text-transform:uppercase;opacity:.85;margin-bottom:14px}
+.t-hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.1rem,5.5vw,3.6rem);line-height:1.04;margin:0;letter-spacing:-.01em}
+.t-hero .sub{font-family:var(--serif);font-style:italic;font-size:clamp(1.1rem,2.3vw,1.45rem);opacity:.95;margin:20px 0 0;max-width:52ch}
+
+.subnav{position:sticky;top:53px;z-index:40;background:color-mix(in srgb,var(--theme) 10%,#fff);border-bottom:1px solid color-mix(in srgb,var(--theme) 22%,#fff)}
+.subnav .in{max-width:var(--wrap);margin:0 auto;padding:0 var(--pad);display:flex;gap:4px;overflow-x:auto}
+.subnav button{background:none;border:0;border-bottom:3px solid transparent;padding:14px 14px;font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--theme);cursor:pointer;white-space:nowrap;opacity:.7}
+.subnav button:hover{opacity:1}
+.subnav button.on{opacity:1;border-bottom-color:var(--theme);font-weight:600}
+
+.t-body{max-width:var(--wrap);margin:0 auto;padding:0 var(--pad)}
+.chapter{padding:52px 0;border-bottom:1px solid var(--rule)}
+.chapter:last-of-type{border-bottom:0}
+
+.rolehead{display:flex;align-items:center;gap:14px;margin:0 0 8px}
+.rolehead .pill{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:#fff;padding:6px 14px;border-radius:999px}
+.rolehead.lfi .pill{background:var(--lfi)} .rolehead.chf .pill{background:var(--chf)} .rolehead.opp .pill{background:var(--opp)}
+.rolehead h2{font-family:var(--serif);font-weight:500;font-size:1.85rem;margin:0}
+.roledesc{font-size:15px;color:var(--ink-soft);margin:0 0 26px}
+
+.prose p{max-width:70ch;margin:0 0 14px}
+.prose p:last-child{margin-bottom:0}
+mark{background:var(--lfi-wash);color:var(--lfi-d);padding:0 .14em;font-weight:600;border-radius:2px}
+.term{font:inherit;color:var(--theme);background:none;border:0;padding:0;cursor:help;border-bottom:2px dotted color-mix(in srgb,var(--theme) 55%,#fff);line-height:1.2}
+.term:hover{background:color-mix(in srgb,var(--theme) 12%,#fff)}
+
+.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;margin-top:8px}
+.mcard{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--lfi);border-radius:12px;padding:20px 20px 18px;cursor:pointer;text-align:left;font:inherit;color:inherit;transition:transform .16s,box-shadow .16s;display:flex;flex-direction:column;gap:9px}
+.mcard:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(20,15,30,.1)}
+.mcard .mk{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--lfi-d)}
+.mcard h4{font-family:var(--serif);font-weight:500;font-size:1.28rem;line-height:1.15;margin:0}
+.mcard p{margin:0;font-size:14px;color:var(--ink-soft);line-height:1.45}
+.mcard .open{margin-top:auto;font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--lfi);display:flex;align-items:center;gap:7px;padding-top:4px}
+.mcard .open .ar{transition:transform .18s}
+.mcard:hover .open .ar{transform:translateX(4px)}
+
+.etat{background:#fff;border:1px solid var(--flag);border-radius:14px;padding:0;margin:30px 0 0;overflow:hidden}
+.etat .h{background:var(--flag-wash);padding:14px 22px;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--flag);display:flex;align-items:center;gap:10px;border-bottom:1px solid #ECD9B4}
+.etat .c{padding:22px}
+.etat .c p{margin:0 0 12px;font-size:15px}
+.etat .c p:last-child{margin-bottom:0}
+.etat .two{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:6px 0 0}
+.etat .two .col{background:var(--bg);border-radius:10px;padding:16px 18px}
+.etat .two .col h5{margin:0 0 8px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.etat .two .col.pro h5{color:var(--hor)} .etat .two .col.con h5{color:var(--chf-d)}
+.etat .two .col p{font-size:14px;color:var(--ink-soft);margin:0}
+
+.ledger{border:1px solid var(--chf);border-radius:14px;overflow:hidden;background:#fff;margin-top:8px}
+.lrow{display:grid;grid-template-columns:1.3fr 1.2fr;border-bottom:1px solid var(--rule)}
+.lrow:last-of-type{border-bottom:0}
+.lcell{padding:18px 20px}
+.lcell.l{border-right:1px solid var(--rule);background:var(--chf-wash)}
+.lcell .mz{font-size:15px;line-height:1.4}
+.lcell .lab{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:5px}
+.fig{font-family:var(--mono);font-weight:600;color:var(--chf-d);font-size:1.02rem}
+.evals{display:flex;flex-direction:column;gap:11px}
+.eval{font-size:14px;line-height:1.4}
+.eval .src{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--chf);display:block;font-weight:600}
+.lnote{padding:15px 20px;background:var(--chf-wash);font-size:13.5px;color:#7a2020;border-top:1px solid #f1c9c9}
+
+.oppgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}
+.oppcard{background:#fff;border:1px solid var(--rule);border-top:4px solid;border-radius:12px;padding:18px 20px}
+.oppcard.rn{border-top-color:var(--rn)} .oppcard.hor{border-top-color:var(--hor)} .oppcard.ps{border-top-color:var(--ps)}
+.oppcard .p{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;margin-bottom:10px}
+.oppcard.rn .p{color:var(--rn)} .oppcard.hor .p{color:var(--hor)} .oppcard.ps .p{color:var(--ps)}
+.oppcard p{margin:0;font-size:14px;color:var(--ink-soft);line-height:1.5}
+.angles{margin-top:18px;background:var(--opp-wash);border:1px solid #cdddfb;border-radius:12px;padding:18px 22px}
+.angles h4{margin:0 0 12px;font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--opp-d)}
+.angles ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.angles li{font-size:14.5px;color:#264a8f;padding-left:22px;position:relative;line-height:1.5}
+.angles li::before{content:"→";position:absolute;left:0;color:var(--opp)}
+
+.synth{background:var(--ink);color:#efeaf7;border-radius:16px;padding:34px clamp(22px,4vw,42px);margin-top:8px}
+.synth .h{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#b9a6e6;margin-bottom:16px}
+.synth h3{font-family:var(--serif);font-weight:500;font-size:1.5rem;margin:0 0 14px;color:#fff}
+.synth p{max-width:74ch;color:#d9d2e8;margin:0 0 20px}
+.synth .cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:8px}
+.synth .box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:18px 20px}
+.synth .box h5{margin:0 0 12px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.synth .box.miss h5{color:#f0a3a3} .synth .box.oth h5{color:#a3c0f0}
+.synth .box ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px}
+.synth .box li{font-size:14px;line-height:1.5;padding-left:18px;position:relative;color:#d9d2e8}
+.synth .box.miss li::before{content:"!";position:absolute;left:0;color:#f0a3a3;font-family:var(--mono);font-weight:700}
+.synth .box.oth li::before{content:"·";position:absolute;left:2px;color:#a3c0f0;font-weight:700}
+.synth .box li b{color:#fff}
+
+.srcs{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.srcs a{font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);text-decoration:none;border:1px solid var(--rule);background:#fff;padding:9px 14px;border-radius:8px;transition:.16s;display:inline-flex;gap:8px;align-items:center}
+.srcs a:hover{border-color:var(--theme);color:var(--theme)}
+.srcs a .ex{color:var(--flag)}
+
+.pager{display:flex;justify-content:space-between;gap:14px;padding:36px 0 90px}
+.pager button{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:16px 20px;cursor:pointer;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);transition:.16s;max-width:46%;text-align:left}
+.pager button:hover:not(:disabled){border-color:var(--theme);color:var(--theme)}
+.pager button:disabled{opacity:.35;cursor:default}
+.pager button b{display:block;font-family:var(--serif);font-weight:500;font-size:16px;text-transform:none;letter-spacing:0;color:var(--ink);margin-top:5px}
+.pager button.next{text-align:right}
+
+.overlay{position:fixed;inset:0;background:rgba(22,18,33,.55);backdrop-filter:blur(3px);z-index:100;display:none;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto}
+.overlay.on{display:flex;animation:fade .25s ease both}
+.modal{background:var(--card);border-radius:18px;max-width:680px;width:100%;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.35);margin:auto}
+.modal .top{padding:26px 30px 20px;border-bottom:1px solid var(--rule);position:relative}
+.modal .top .mk{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--lfi-d);margin-bottom:8px}
+.modal .top h3{font-family:var(--serif);font-weight:500;font-size:1.7rem;line-height:1.14;margin:0;padding-right:40px}
+.modal .close{position:absolute;top:22px;right:24px;width:34px;height:34px;border-radius:50%;border:1px solid var(--rule);background:#fff;cursor:pointer;font-size:18px;color:var(--ink-soft);line-height:1}
+.modal .close:hover{background:var(--bg)}
+.modal .content{padding:8px 30px 30px;max-height:64vh;overflow-y:auto}
+.mblock{padding:20px 0;border-bottom:1px solid var(--rule)}
+.mblock:last-child{border-bottom:0}
+.mblock .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:9px;display:flex;align-items:center;gap:9px}
+.mblock.ctx .lbl{color:var(--flag)} .mblock.obj .lbl{color:var(--lfi-d)} .mblock.rep .lbl{color:var(--opp-d)} .mblock.chi .lbl{color:var(--chf-d)}
+.mblock p{margin:0;font-size:15px;line-height:1.6;color:var(--ink-soft)}
+.mblock .fig{margin-top:4px;display:inline-block}
+.mblock .eval{margin-top:9px}
+.msrc{display:flex;flex-wrap:wrap;gap:9px}
+.msrc a{font-family:var(--mono);font-size:12px;color:var(--ink-soft);text-decoration:none;border:1px solid var(--rule);padding:7px 12px;border-radius:8px}
+.msrc a:hover{border-color:var(--theme);color:var(--theme)}
+.modal.def{max-width:460px}
+.modal.def .content{padding:22px 30px 30px}
+.modal.def p{font-size:16px;line-height:1.6;color:var(--ink-soft);margin:0}
+
+.page{max-width:900px;margin:0 auto;padding:56px var(--pad) 90px}
+.page h1{font-family:var(--serif);font-weight:500;font-size:2.6rem;margin:0 0 10px}
+.page .intro{font-size:17px;color:var(--ink-soft);max-width:70ch;margin:0 0 30px}
+.gsearch{width:100%;padding:14px 18px;border:1px solid var(--rule);border-radius:12px;font:inherit;font-size:16px;background:#fff;margin-bottom:24px}
+.gsearch:focus{outline:none;border-color:var(--lfi)}
+.glist{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.gitem{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:18px 20px}
+.gitem dt{font-family:var(--serif);font-weight:600;font-size:1.15rem;margin:0 0 6px}
+.gitem dd{margin:0;font-size:14.5px;color:var(--ink-soft);line-height:1.55}
+.méthode h2{font-family:var(--serif);font-weight:500;font-size:1.5rem;margin:34px 0 12px}
+.méthode p{color:var(--ink-soft);margin:0 0 14px}
+.méthode .keys{border:1px solid var(--rule);background:#fff;border-radius:12px;padding:2px 22px;margin:18px 0}
+.méthode .keys div{padding:16px 0;border-bottom:1px solid var(--rule);display:flex;gap:18px;align-items:baseline}
+.méthode .keys div:last-child{border-bottom:0}
+.méthode .keys .n{font-family:var(--mono);font-size:12px;color:var(--flag);flex:none;width:140px;text-transform:uppercase;letter-spacing:.04em}
+.méthode .keys .d{font-size:15px;color:var(--ink-soft)}
+
+footer{border-top:1px solid var(--rule);background:#fff}
+.foot{max-width:var(--wrap);margin:0 auto;padding:36px var(--pad) 64px;display:grid;grid-template-columns:1.4fr 1fr;gap:32px}
+.foot .h{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px}
+.foot p{font-size:13px;color:var(--ink-faint);line-height:1.55;margin:0 0 10px}
+.foot a{color:var(--ink-soft);display:block;font-size:13px;margin-bottom:7px;font-family:var(--mono)}
+
+@media(max-width:820px){
+  body{font-size:16px}
+  .colorkey,.oppgrid,.etat .two,.synth .cols,.glist,.foot{grid-template-columns:1fr}
+  .lrow{grid-template-columns:1fr}
+  .lcell.l{border-right:0;border-bottom:1px solid var(--rule)}
+  .subnav{top:52px}
+  .méthode .keys div{flex-direction:column;gap:5px}
+  .méthode .keys .n{width:auto}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-in">
+    <button class="brand" onclick="go('accueil')"><b>L'Avenir en commun</b>, décodé</button>
+    <nav class="topnav" id="topnav"></nav>
+  </div>
+</div>
+
+<section class="view" id="v-accueil">
+  <div class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Dossier interactif · analyse indépendante · maj. 2026</p>
+      <h1>Le programme de LFI, <span class="u">décodé</span> mesure par mesure.</h1>
+      <p class="lede">Chaque proposition expliquée — son contexte, son objectif, son coût, et ce qu'on lui oppose. Cliquez pour tout déplier.</p>
+      <div class="colorkey">
+        <div class="ck v"><h4>● Ce que propose LFI</h4><p>Les idées et les mesures du programme <i>L'Avenir en commun</i>, expliquées une par une.</p></div>
+        <div class="ck r"><h4>● Ce que disent les chiffres</h4><p>Le chiffrage de LFI confronté à celui de l'Institut Montaigne, de l'IFRAP et de l'OFCE.</p></div>
+        <div class="ck b"><h4>● Ce qu'on peut opposer</h4><p>Les projets du RN, d'Horizons et du PS, et les angles morts du programme.</p></div>
+      </div>
+      <div class="editnote">
+        <span class="t">Note de l'éditeur</span>
+        <p>Ce dossier n'est pas produit par La France insoumise. Il présente son programme de façon pédagogique, le confronte aux autres partis, compare les chiffrages, définit chaque terme technique et signale ce qui manque de projection. Les couleurs ci-dessus reviennent partout dans le site. Tout mot souligné en pointillés ouvre sa définition.</p>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="sec-title"><h2>Les dix chapitres</h2><span>Cliquez pour ouvrir</span></div>
+    <div class="themegrid" id="themegrid"></div>
+  </div>
+</section>
+
+<section class="view" id="v-theme"></section>
+
+<section class="view" id="v-glossaire">
+  <div class="page">
+    <h1>Définitions</h1>
+    <p class="intro">Aucune notion n'est laissée sans explication. Cherchez un terme, ou parcourez la liste. Ces définitions s'ouvrent aussi en cliquant sur les mots soulignés en pointillés dans les chapitres.</p>
+    <input class="gsearch" id="gsearch" type="search" placeholder="Rechercher un terme (ex. : ISF, T2A, répartition…)" oninput="filterGloss(this.value)">
+    <dl class="glist" id="glist"></dl>
+  </div>
+</section>
+
+<section class="view" id="v-methode">
+  <div class="page méthode">
+    <h1>Méthode & limites</h1>
+    <p class="intro">Ce dossier vise à rendre lisible un programme dense et à permettre son examen critique — ni le promouvoir, ni le disqualifier.</p>
+    <h2>D'où viennent les chiffres</h2>
+    <p>Aucun chiffrage n'est neutre. Ce dossier confronte volontairement des sources d'orientations différentes :</p>
+    <div class="keys">
+      <div><span class="n">LFI / NFP</span><span class="d">Chiffrage du parti. En 2024, le Nouveau Front populaire (dont LFI) a évalué son programme à ~150 Md€/an de dépenses d'ici 2027, qu'il dit équilibré par autant de recettes.</span></div>
+      <div><span class="n">Institut Montaigne</span><span class="d">Think tank libéral. Chiffrages détaillés des législatives 2024 ; méthode contestée à gauche.</span></div>
+      <div><span class="n">Fondation IFRAP</span><span class="d">Think tank libéral, favorable à la baisse de la dépense publique. Conteste l'équilibre annoncé par le NFP.</span></div>
+      <div><span class="n">OFCE / I. Rousseau</span><span class="d">Évaluations plus académiques (OFCE) ou proches de la gauche (Institut Rousseau), utiles pour trianguler.</span></div>
+    </div>
+    <h2>Trois limites à garder en tête</h2>
+    <p><b>Des versions successives.</b> <i>L'Avenir en commun</i> existe depuis 2016, réactualisé en 2022 puis 2024-2025 (~830 mesures). Certains chiffrages datent des législatives 2024.</p>
+    <p><b>Des effets incertains.</b> Un chiffrage « statique » ignore les effets de retour (croissance, emploi, évitement fiscal) que nul ne sait mesurer avec certitude.</p>
+    <p><b>La faisabilité n'est pas le fond.</b> Signaler qu'une mesure est bloquée juridiquement ou peu chiffrée renseigne sur sa mise en œuvre, pas sur sa justesse.</p>
+  </div>
+</section>
+
+<div class="overlay" id="overlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modal" role="dialog" aria-modal="true"></div>
+</div>
+
+<footer>
+  <div class="foot">
+    <div>
+      <div class="h">À propos</div>
+      <p>Document indépendant, sans affiliation partisane, à visée informative. Il présente le programme de LFI avec des contrepoints et des sources vérifiables ; les positions des autres partis sont rapportées telles qu'ils les défendent.</p>
+      <p>Les chiffrages cités émanent de tiers aux méthodes discutées : à croiser, jamais à prendre pour argent comptant.</p>
+    </div>
+    <div>
+      <div class="h">Sources principales</div>
+      <a href="https://laec.fr/" target="_blank" rel="noopener">laec.fr — programme intégral ↗</a>
+      <a href="https://www.institutmontaigne.org/legislatives-2024/" target="_blank" rel="noopener">Institut Montaigne — chiffrages ↗</a>
+      <a href="https://www.ifrap.org/budget-et-fiscalite/le-vrai-cout-du-programme-du-nouveau-front-populaire" target="_blank" rel="noopener">IFRAP — coût du NFP ↗</a>
+      <a href="https://rte-futursenergetiques2050.com/" target="_blank" rel="noopener">RTE — Futurs énergétiques 2050 ↗</a>
+      <a href="https://www.insee.fr/fr/statistiques/3633212" target="_blank" rel="noopener">INSEE — immigrés & étrangers ↗</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const DEFS = {
+  "Ve-Republique":["Vᵉ République","Le régime politique de la France depuis 1958. Il donne un rôle central au président de la République. LFI le juge trop « présidentiel » et veut le remplacer."],
+  "VIe-Republique":["VIᵉ République","Nouveau régime que propose LFI, qui rééquilibrerait les pouvoirs vers le Parlement et les citoyens, rédigé par une Assemblée constituante."],
+  "constituante":["Assemblée constituante","Assemblée élue spécialement pour écrire une nouvelle Constitution, distincte des députés en place. Une fois le texte rédigé, il est soumis à référendum."],
+  "RIC":["Référendum d'initiative citoyenne (RIC)","Dispositif permettant aux citoyens, à partir d'un nombre de signatures, de déclencher eux-mêmes un référendum : pour proposer une loi, en abroger une, ou révoquer un élu."],
+  "49-3":["Article 49.3","Disposition de la Constitution qui permet au gouvernement de faire adopter un texte sans vote, sauf si une motion de censure le renverse. LFI veut en supprimer l'usage."],
+  "article-89":["Article 89","L'article qui fixe la procédure de révision de la Constitution : vote en termes identiques par l'Assemblée et le Sénat, puis référendum ou Congrès. C'est le principal verrou juridique d'une VIᵉ République."],
+  "article-55":["Article 55","Article de la Constitution qui place les traités internationaux (dont le droit européen) au-dessus des lois françaises. Il fonde la « primauté » du droit de l'UE."],
+  "primaute-UE":["Primauté du droit de l'UE","Principe selon lequel, en cas de conflit, le droit européen l'emporte sur la loi nationale. Un juge doit écarter une loi qui le contredit."],
+  "pacte-stabilite":["Pacte de stabilité","Ensemble de règles budgétaires européennes limitant le déficit (3 % du PIB) et la dette (60 %). LFI veut s'en affranchir pour financer ses dépenses."],
+  "detaches":["Travailleurs détachés","Salariés employés dans un pays de l'UE mais envoyés travailler temporairement dans un autre. La directive qui les encadre est critiquée pour favoriser une concurrence sur les salaires."],
+  "OTAN":["OTAN (commandement intégré)","Alliance militaire occidentale. La France y est revenue pleinement en 2009. LFI veut sortir du « commandement intégré » pour retrouver une autonomie stratégique, sans quitter l'alliance."],
+  "SMIC":["SMIC","Salaire minimum légal en France. Toute hausse relève les bas salaires mais renchérit le coût du travail, d'où un débat sur ses effets sur l'emploi."],
+  "ISF":["ISF (impôt sur la fortune)","Impôt sur les patrimoines élevés, supprimé en 2018 et remplacé par l'IFI (limité à l'immobilier). LFI veut le rétablir et l'élargir."],
+  "IFI":["IFI","Impôt sur la fortune immobilière, créé en 2018 en remplacement de l'ISF. Il ne taxe que le patrimoine immobilier, pas les placements financiers."],
+  "flat-tax":["Flat tax (PFU)","Prélèvement forfaitaire unique de 30 % sur les revenus du capital (dividendes, intérêts), instauré en 2018. LFI veut le supprimer pour revenir à un barème progressif."],
+  "exit-tax":["Exit tax","Impôt visant à taxer les plus-values latentes de ceux qui transfèrent leur domicile fiscal hors de France, pour limiter l'exil fiscal."],
+  "superprofits":["Superprofits","Bénéfices exceptionnels réalisés par certaines entreprises à la faveur d'une conjoncture (crise énergétique, par ex.). LFI et le NFP veulent les taxer spécifiquement."],
+  "zucman":["Taxe Zucman","Impôt plancher de 2 % sur les patrimoines de plus de 100 M€, du nom de l'économiste Gabriel Zucman. Portée par le PS ; rejetée par le Sénat en 2025."],
+  "CVAE":["CVAE","Cotisation sur la valeur ajoutée des entreprises : l'un des principaux « impôts de production ». Sa baisse est défendue à droite pour la compétitivité."],
+  "impots-production":["Impôts de production","Impôts que les entreprises paient sur leur activité indépendamment du bénéfice (dont la CVAE). Réputés plus élevés en France qu'ailleurs en Europe."],
+  "garantie-emploi":["Garantie d'emploi","Idée selon laquelle l'État propose un emploi (souvent utile écologiquement ou socialement) à toute personne durablement sans travail — « employeur en dernier ressort »."],
+  "repartition":["Système par répartition","Système de retraite français : les cotisations des actifs paient directement les pensions des retraités, année après année. S'oppose à la capitalisation."],
+  "capitalisation":["Capitalisation","Système où chacun épargne pour sa propre retraite via des placements financiers. Défendu partiellement par Horizons, en complément de la répartition."],
+  "annuites":["Annuités","Nombre d'années de cotisation exigées pour une retraite à taux plein. LFI veut revenir à 40 annuités ; la réforme Touraine les a portées à 43."],
+  "penibilite":["Pénibilité","Exposition à des conditions de travail usantes (port de charges, horaires de nuit…). Sa prise en compte permet des départs anticipés."],
+  "reforme-2023":["Réforme des retraites 2023","Réforme dite « Borne » qui a reculé l'âge légal de départ de 62 à 64 ans, adoptée via le 49.3. LFI veut l'abroger."],
+  "touraine":["Réforme Touraine","Réforme de 2014 (gouvernement socialiste) qui a allongé la durée de cotisation à 43 annuités. Le PS la conserve ; LFI veut revenir à 40."],
+  "COR":["COR","Conseil d'orientation des retraites : organisme public qui produit les projections de référence sur l'équilibre financier du système. Ses scénarios varient fortement selon les hypothèses d'emploi et de croissance."],
+  "T2A":["Tarification à l'activité (T2A)","Mode de financement des hôpitaux où chaque acte médical rapporte un tarif. Accusée de pousser à la « rentabilité » au détriment du soin ; LFI veut la supprimer."],
+  "planification":["Planification écologique","Pilotage par l'État d'une transformation programmée de l'économie (énergie, transports, agriculture) pour atteindre des objectifs climatiques."],
+  "regle-verte":["Règle verte","Principe défendu par LFI : ne pas prélever à la nature plus de ressources qu'elle ne peut en reconstituer, ni produire plus qu'elle ne peut supporter. LFI veut l'inscrire dans la Constitution."],
+  "EnR":["Énergies renouvelables (EnR)","Sources d'énergie qui se reconstituent : solaire, éolien, hydraulique, biomasse. Elles couvrent aujourd'hui environ 15 % de l'énergie finale en France."],
+  "EPR":["EPR / EPR2","Réacteurs nucléaires de nouvelle génération. Le chantier de l'EPR de Flamanville a connu de longs retards et surcoûts ; les « EPR2 » sont les futurs réacteurs projetés."],
+  "RTE":["RTE","Gestionnaire du réseau de transport d'électricité (filiale d'EDF). Ses « Futurs énergétiques 2050 » sont l'étude de référence sur les scénarios de mix électrique."],
+  "negawatt":["négaWatt","Association d'experts qui défend un scénario 2050 fondé sur la sobriété, l'efficacité et 100 % d'énergies renouvelables, sans nucléaire."],
+  "shift":["The Shift Project","Think tank sur la décarbonation, présidé par Jean-Marc Jancovici. Son « Plan de transformation » insiste sur la sobriété ; il est plutôt ouvert au nucléaire, contrairement à négaWatt."],
+  "ADEME":["ADEME","Agence de la transition écologique. Elle a publié en 2015 une étude concluant qu'un mix électrique 100 % renouvelable était techniquement atteignable."],
+  "ASN":["ASN","Autorité de sûreté nucléaire. Elle rappelle que la prolongation des réacteurs au-delà de 50-60 ans n'est jamais acquise et dépend d'examens de sûreté."],
+  "sobriete":["Sobriété énergétique","Réduction volontaire de la consommation d'énergie (usages, modes de vie), distincte de l'efficacité (mieux consommer). Pilier des scénarios négaWatt et Shift Project."],
+  "neutralite-carbone":["Neutralité carbone","Équilibre entre les émissions de gaz à effet de serre et ce qui peut être absorbé. La France vise la neutralité en 2050 (Accord de Paris)."],
+  "metiers-tension":["Métiers en tension","Secteurs qui peinent à recruter. La loi de 2024 permet à des travailleurs sans-papiers d'y être régularisés sous conditions."],
+  "droit-du-sol":["Droit du sol","Règle par laquelle un enfant né en France de parents étrangers peut devenir français. Le RN veut le supprimer ; LFI le défend."],
+  "AES":["Régularisation (AES)","Admission exceptionnelle au séjour : procédure permettant de régulariser un étranger sans-papiers, notamment par le travail. Les régularisations ont baissé depuis la loi de 2024."],
+  "CRA":["Centre de rétention (CRA)","Lieu où sont enfermés des étrangers en attente d'éloignement. LFI veut mettre fin à l'enfermement des enfants."],
+  "AME":["Aide médicale d'État (AME)","Dispositif qui couvre les soins des étrangers en situation irrégulière. Régulièrement visé par la droite et l'extrême droite ; défendu par la gauche comme un enjeu de santé publique."],
+  "offre-demande":["Politique de l'offre / de la demande","Deux visions opposées : soutenir les entreprises (baisser coûts et impôts) pour qu'elles produisent — l'offre ; ou soutenir la consommation (salaires, dépense publique) pour tirer l'activité — la demande. LFI mise sur la demande."],
+  "keynes":["Keynésianisme","Courant économique selon lequel la dépense publique et le soutien à la demande peuvent relancer l'activité et l'emploi, surtout en période de sous-emploi."],
+  "deficit":["Déficit public","Écart annuel entre les recettes et les dépenses de l'État et des administrations. Il était d'environ 5,1 % du PIB en 2025, au-dessus du seuil européen de 3 %."],
+  "dette":["Dette publique","Total emprunté par les administrations. Environ 115,6 % du PIB en 2025 : l'un des niveaux les plus élevés de la zone euro."],
+  "police-proximite":["Police de proximité","Modèle policier ancré dans les quartiers, centré sur la prévention et le lien avec les habitants, par opposition aux unités d'intervention. Supprimée en 2003, LFI veut la rétablir."],
+  "BAC-BRAVM":["BAC & BRAV-M","Brigades anticriminalité et Brigades de répression des actions violentes motorisées : unités d'intervention que LFI veut démanteler au profit de la police de proximité."],
+  "IGPN":["IGPN","Inspection générale de la police nationale, la « police des polices ». LFI veut la rendre indépendante du ministère de l'Intérieur."],
+  "LBD":["LBD & armes de force intermédiaire","Lanceur de balles de défense (LBD 40) et autres armes (grenades de désencerclement, Taser) utilisées en maintien de l'ordre. LFI veut les interdire au profit d'une doctrine de désescalade."],
+  "salles-conso":["Salles de consommation à moindre risque","Lieux encadrés où les usagers de drogues peuvent consommer sous supervision sanitaire, pour réduire les risques et le lien avec les soins. LFI veut les généraliser."],
+  "prix-planchers":["Prix planchers","Prix de vente minimum garanti aux agriculteurs, fixé pour couvrir leurs coûts de production. Défendu par LFI, mais aussi par le PS, les Écologistes et le RN."],
+  "PAC":["PAC","Politique agricole commune : premier poste de dépense de l'UE (~58 Md€/an ; ~9,5 Md€/an pour la France). Ses aides sont aujourd'hui versées surtout à l'hectare."],
+  "aides-hectare":["Aides à l'hectare / à l'actif","La PAC verse aujourd'hui des aides proportionnelles à la surface (à l'hectare), ce qui favorise les grandes exploitations. LFI veut basculer vers des aides « à l'actif », par travailleur."],
+  "clauses-miroirs":["Clauses miroirs","Principe imposant aux produits importés les mêmes normes sanitaires et environnementales qu'aux producteurs français, pour éviter une concurrence déloyale."],
+  "glyphosate":["Glyphosate & néonicotinoïdes","Un herbicide et une famille d'insecticides très répandus, controversés pour leurs effets sur la santé et la biodiversité. LFI veut les interdire immédiatement."],
+  "reforme-agraire":["Réforme agraire","Politique visant à faciliter l'accès à la terre agricole (foncier) et sa redistribution, pour installer de nouveaux paysans."],
+  "vie-chere":["Vie chère","Niveau des prix nettement plus élevé dans les outre-mer qu'en métropole, surtout sur l'alimentation, lié à l'éloignement, aux importations et à la concentration de la distribution."],
+  "continuite-territoriale":["Continuité territoriale","Politique visant à réduire, par des aides et des tarifs réglementés, le coût et les difficultés de transport entre l'Hexagone et les territoires d'outre-mer."],
+  "octroi-de-mer":["Octroi de mer","Taxe appliquée sur les marchandises dans les outre-mer : source de recettes essentielle pour les collectivités, mais aussi critiquée comme facteur de vie chère."],
+  "RUP":["Régions ultrapériphériques (RUP)","Statut européen des outre-mer, qui leur ouvre des adaptations des règles de l'UE tout en les maintenant dans l'Union."],
+  "chlordecone":["Chlordécone","Pesticide utilisé aux Antilles jusqu'en 1993, responsable d'une pollution durable des sols et d'un scandale sanitaire majeur, symbole des inégalités environnementales ultramarines."]
+};
+
+function processInline(str){
+  return str.replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g,(m,key,disp)=>{
+    const k=key.trim();
+    const label=disp||(DEFS[k]?DEFS[k][0]:k);
+    return `<button class="term" onclick="showDef('${k}')" title="Voir la définition">${label}</button>`;
+  });
+}
+
+const THEMES = [
+{
+  id:"republique", num:"01", color:"#0F766E", wash:"#E7F1EF",
+  title:"VIᵉ République & démocratie",
+  teaser:"Une Assemblée constituante, le référendum citoyen, la fin de la « monarchie présidentielle ».",
+  sub:"Reprendre le pouvoir confisqué : convoquer le peuple pour qu'il écrive lui-même ses institutions.",
+  idees:[
+    "Le cœur institutionnel de LFI est la rupture avec la [[Ve-Republique|Vᵉ République]], jugée trop présidentielle. L'outil central est une <mark>[[constituante|Assemblée constituante]]</mark> élue, distincte des parlementaires en place, chargée d'écrire une [[VIe-Republique|VIᵉ République]] soumise ensuite à référendum.",
+    "S'y ajoute une logique de démocratie continue : [[RIC|référendum d'initiative citoyenne]], reconnaissance du vote blanc, droit de vote à 16 ans, et renforcement des droits du Parlement face à l'exécutif."
+  ],
+  measures:[
+    {id:"m1",title:"Convoquer une Assemblée constituante",short:"Faire écrire une VIᵉ République par des citoyens élus, hors députés sortants.",
+     ctx:"LFI estime que la [[Ve-Republique|Vᵉ République]] concentre trop de pouvoirs dans les mains du président et prive les citoyens de contrôle réel entre deux élections.",
+     obj:"Élire une [[constituante|assemblée constituante]] chargée de rédiger une nouvelle Constitution, puis la soumettre au peuple par référendum.",
+     rep:"Les juristes soulignent qu'aucune procédure claire ne permet de convoquer une constituante <b>hors de l'[[article-89]]</b>, qui exige l'accord de l'Assemblée <i>et</i> du Sénat. Sans cela, l'initiative est juridiquement fragile.",
+     chi:{lfi:"Coût budgétaire marginal",evals:[{src:"Consensus",val:"Mesure institutionnelle, pas un poste de dépense"}],note:""},
+     src:[{l:"laec.fr — VIᵉ République",u:"https://laec.fr/"}]},
+    {id:"m2",title:"Instaurer le référendum d'initiative citoyenne",short:"Permettre aux citoyens de déclencher un référendum : proposer, abroger, révoquer.",
+     ctx:"Le référendum est aujourd'hui à la main du président ou du Parlement. LFI veut le rendre accessible aux citoyens eux-mêmes.",
+     obj:"Créer un [[RIC]] sous quatre formes : législatif (proposer une loi), abrogatoire (en supprimer une), révocatoire (destituer un élu) et constituant.",
+     rep:"Les critiques redoutent une instabilité (référendums à répétition) et des questions complexes tranchées par oui/non ; les partisans y voient un antidote à la défiance démocratique.",
+     chi:{lfi:"Coût d'organisation limité",evals:[{src:"—",val:"Dépend du nombre de référendums déclenchés"}],note:""},
+     src:[{l:"laec.fr — démocratie",u:"https://laec.fr/"}]},
+    {id:"m3",title:"Abolir la « monarchie présidentielle »",short:"Réduire les pouvoirs du président, supprimer l'usage du 49.3.",
+     ctx:"L'usage répété de l'[[49-3|article 49.3]] pour adopter des lois sans vote (dont la [[reforme-2023|réforme des retraites 2023]]) est vu par LFI comme un symbole du déséquilibre des pouvoirs.",
+     obj:"Rééquilibrer les institutions vers le Parlement : encadrer les pouvoirs présidentiels et supprimer le recours au 49.3.",
+     rep:"Ses détracteurs objectent que le 49.3 permet de gouverner sans majorité absolue et que sa suppression pourrait bloquer l'action publique en Assemblée fragmentée.",
+     chi:{lfi:"Sans effet budgétaire direct",evals:[{src:"—",val:"Réforme institutionnelle"}],note:""},
+     src:[{l:"laec.fr",u:"https://laec.fr/"}]}
+  ],
+  etat:null,
+  chiffres:{rows:[{mesure:"Réformes institutionnelles (constituante, RIC, 49.3)",lfi:"Coût budgétaire marginal",evals:[{src:"Consensus",val:"Ce sont des mesures de procédure, pas des postes de dépense"}]}],
+    note:"Sur ce chapitre, l'enjeu n'est pas l'argent mais le <b>droit</b> : le vrai obstacle est la procédure de révision constitutionnelle, pas le financement."},
+  opp:{rn:"Pas de VIᵉ République. Recourt au référendum (art. 11), surtout sur l'immigration, dans le cadre de la Vᵉ qu'il conserve.",
+    hor:"Logique inverse : renforcer l'exécutif. Édouard Philippe évoque dissolution, ordonnances et référendums ciblés.",
+    ps:"Refondation démocratique et « démocratie sociale », mais sans rupture constitutionnelle ni constituante.",
+    angles:["La procédure pour convoquer une constituante <b>hors [[article-89]]</b> est juridiquement contestée.","Sans accord du Sénat ni majorité large, le passage à la VIᵉ République reste hors de portée immédiate."]},
+  synth:{txt:"Le projet démocratique de LFI est cohérent et peu coûteux, mais il bute sur un obstacle non financier : <b>la Constitution actuelle ne prévoit pas de convoquer une constituante</b>. C'est un pari politique (créer un rapport de force) plus qu'un programme applicable par une loi ordinaire.",
+    miss:["La procédure juridique exacte pour lancer la constituante.","Le rôle du Sénat, dont l'accord est requis par l'article 89."],
+    oth:["<b>RN</b> : référendums ciblés, pas de nouvelle République.","<b>Horizons</b> : renforcer l'exécutif, pas l'affaiblir.","<b>PS</b> : réformes démocratiques sans rupture."]},
+  sources:[{l:"laec.fr — programme intégral",u:"https://laec.fr/"},{l:"Les Surligneurs — analyses juridiques",u:"https://lessurligneurs.eu/"}]
+},
+{
+  id:"richesses", num:"02", color:"#B45309", wash:"#F7EFE2",
+  title:"Travail, salaires & partage des richesses",
+  teaser:"SMIC à 1 600 €, retour de l'ISF, taxe sur les superprofits, garantie d'emploi.",
+  sub:"Partager les richesses et mettre au pas la finance : relever les bas salaires, taxer les très hauts patrimoines.",
+  idees:[
+    "LFI défend une [[offre-demande|logique de demande]] : soutenir les bas salaires et redistribuer pour relancer l'activité. Mesures phares : <mark>[[SMIC]] à 1 600 € net</mark>, [[garantie-emploi|garantie d'emploi]], et une échelle des salaires limitant les écarts.",
+    "Côté recettes, le programme mise sur une fiscalité fortement progressive : rétablissement de l'[[ISF]], suppression de la [[flat-tax]], taxation des [[superprofits]] et durcissement des successions sur les plus gros patrimoines."
+  ],
+  measures:[
+    {id:"m1",title:"Porter le SMIC à 1 600 € net",short:"Relever le salaire minimum pour améliorer le pouvoir d'achat des bas salaires.",
+     ctx:"Face à l'inflation, LFI juge le [[SMIC]] insuffisant pour vivre dignement et veut un « choc » de pouvoir d'achat par le bas.",
+     obj:"Augmenter immédiatement le salaire minimum net et entraîner les grilles salariales vers le haut.",
+     rep:"Les économistes [[offre-demande|libéraux]] craignent un renchérissement du coût du travail peu qualifié, donc un risque sur l'emploi et sur les petites entreprises. LFI répond que la hausse soutient la consommation et l'activité.",
+     chi:{lfi:"Mesure de pouvoir d'achat",evals:[{src:"Institut Montaigne",val:"≈ 3,5 Md€/an de coût pour les finances publiques"}],note:"Les effets sur l'emploi font l'objet d'un désaccord ancien entre économistes."},
+     src:[{l:"Institut Montaigne — pouvoir d'achat",u:"https://www.institutmontaigne.org/legislatives-2024/"}]},
+    {id:"m2",title:"Rétablir un impôt sur la fortune (ISF)",short:"Rétablir et élargir l'ISF, avec une composante climatique.",
+     ctx:"L'[[ISF]] a été supprimé en 2018 et remplacé par l'[[IFI]], limité à l'immobilier. LFI y voit un « cadeau aux plus riches ».",
+     obj:"Rétablir un impôt progressif sur les grands patrimoines, majoré selon leur empreinte carbone.",
+     rep:"Les opposants avancent le risque d'[[exit-tax|exil fiscal]] et un rendement inférieur aux attentes ; les partisans citent la montée des inégalités de patrimoine.",
+     chi:{lfi:"Recette majeure attendue (bloc fiscal NFP)",evals:[{src:"Institut Montaigne",val:"Mesures fiscales NFP ≈ 27,5 Md€/an de recettes"},{src:"IFRAP",val:"≈ 55 Md€ de recettes nouvelles chiffrées, rendement contesté"}],note:"Le rendement réel dépend des comportements (évitement, exil), que nul ne sait chiffrer précisément."},
+     src:[{l:"IFRAP — coût du NFP",u:"https://www.ifrap.org/budget-et-fiscalite/le-vrai-cout-du-programme-du-nouveau-front-populaire"}]},
+    {id:"m3",title:"Taxer les superprofits",short:"Prélever une contribution sur les bénéfices exceptionnels de conjoncture.",
+     ctx:"Lors de la crise énergétique, certaines entreprises ont dégagé des [[superprofits]] jugés indus par LFI.",
+     obj:"Instaurer une taxe sur ces bénéfices exceptionnels, idéalement coordonnée au niveau européen.",
+     rep:"Difficulté de définition (qu'est-ce qu'un « superprofit » ?) et, pour la version européenne, nécessité d'un accord unanime des 27 — hors de portée à court terme.",
+     chi:{lfi:"Recette attendue importante",evals:[{src:"Institut Montaigne",val:"≈ 15 Md€/an (version européenne)"}],note:""},
+     src:[{l:"Institut Montaigne",u:"https://www.institutmontaigne.org/legislatives-2024/"}]},
+    {id:"m4",title:"Instaurer une garantie d'emploi",short:"L'État propose un emploi utile à toute personne durablement sans travail.",
+     ctx:"Contre le chômage de longue durée, LFI reprend l'idée de l'État « employeur en dernier ressort ».",
+     obj:"Proposer un emploi (souvent à visée écologique ou sociale) à qui n'en trouve pas, au niveau du [[SMIC]].",
+     rep:"Le coût, l'organisation et la nature des emplois créés sont peu détaillés, ce qui rend la mesure difficile à évaluer.",
+     chi:{lfi:"Présentée comme un investissement social",evals:[{src:"—",val:"Peu chiffrée par des tiers"}],note:"C'est l'une des mesures les moins projetées du chapitre."},
+     src:[{l:"laec.fr — emploi",u:"https://laec.fr/"}]}
+  ],
+  etat:{h:"État des lieux — le rendement de l'impôt sur les riches",
+    body:["Le débat récurrent : une forte fiscalité sur les hauts patrimoines rapporte-t-elle vraiment ce qu'on en attend ? L'[[ISF]] avait été supprimé en 2018 au nom de l'attractivité ; sa suppression n'a pas fait l'objet d'un bilan consensuel."],
+    two:{pro:{h:"L'argument « ça rapporte »",t:"Les inégalités de patrimoine ont augmenté ; une taxe même faible sur de très grandes fortunes (type [[zucman|taxe Zucman]]) porterait sur une base considérable. La gauche cite l'économiste Gabriel Zucman."},
+        con:{h:"L'argument « ça fuit »",t:"Les think tanks libéraux (IFRAP, Montaigne) anticipent optimisation et exil fiscal, donc des recettes inférieures aux annonces, et un effet dissuasif sur l'investissement."}}},
+  chiffres:{rows:[
+    {mesure:"SMIC à 1 600 € net",lfi:"Pouvoir d'achat",evals:[{src:"Institut Montaigne",val:"≈ 3,5 Md€/an"}]},
+    {mesure:"Recettes fiscales (bloc NFP)",lfi:"≈ 150 Md€/an de recettes pour équilibrer le programme",evals:[{src:"Institut Montaigne",val:"Mesures fiscales ≈ 27,5 Md€/an"},{src:"IFRAP",val:"≈ 55 Md€ chiffrés, équilibre contesté"}]},
+    {mesure:"Superprofits (niveau européen)",lfi:"Recette majeure",evals:[{src:"Institut Montaigne",val:"≈ 15 Md€/an (suppose un accord UE)"}]}],
+    note:"Point le plus attaqué du programme : le <b>rendement réel</b> des recettes. LFI table sur une base stable ; les évaluateurs libéraux anticipent l'évitement."},
+  opp:{rn:"Pas de SMIC à 1 600 € ni d'ISF. Mise sur des hausses de salaire de 10 % via exonérations de cotisations, sur la base du volontariat.",
+    hor:"[[offre-demande|Logique d'offre]] inverse : baisser les impôts de production (« deal » de 50 Md€/an) et le coût du travail.",
+    ps:"Proche : SMIC à 1 690 €. Mais privilégie la [[zucman|taxe Zucman]] à un ISF classique.",
+    angles:["Le rendement des recettes fiscales est incertain et contesté.","La [[garantie-emploi|garantie d'emploi]] est peu chiffrée.","Les effets d'une forte hausse du SMIC sur l'emploi font débat."]},
+  synth:{txt:"Le chapitre repose sur un équilibre <b>dépenses sociales ↔ recettes fiscales</b> que LFI présente comme neutre. Tout dépend d'un pari : que la fiscalité sur les hauts patrimoines rapporte autant qu'annoncé. Les évaluateurs libéraux en doutent ; le désaccord est réel et non tranché.",
+    miss:["Le rendement net des recettes après comportements d'évitement.","Le coût et le fonctionnement de la garantie d'emploi."],
+    oth:["<b>RN</b> : hausses de salaire par exonérations, sans ISF.","<b>Horizons</b> : baisser les impôts des entreprises.","<b>PS</b> : SMIC proche, taxe Zucman."]},
+  sources:[{l:"Institut Montaigne",u:"https://www.institutmontaigne.org/legislatives-2024/"},{l:"IFRAP",u:"https://www.ifrap.org/budget-et-fiscalite/le-vrai-cout-du-programme-du-nouveau-front-populaire"},{l:"OFCE",u:"https://www.ofce-legislatives2024.fr/programmes/nfp.html"}]
+},
+{
+  id:"retraites", num:"03", color:"#9F1239", wash:"#F6E7EC",
+  title:"Retraites & protection sociale",
+  teaser:"Retour de la retraite à 60 ans, 40 annuités, minimum au niveau du SMIC.",
+  sub:"La retraite à 60 ans comme un droit : abroger la réforme de 2023 et revenir sur le recul de l'âge légal.",
+  idees:[
+    "LFI veut <mark>abroger la [[reforme-2023|réforme de 2023]]</mark> et rétablir l'âge légal à <b>60 ans</b>, avec un retour à 40 [[annuites]] et une pension minimale au niveau du [[SMIC]].",
+    "Le financement repose sur une logique assumée : davantage de cotisations via la hausse de l'emploi et des salaires, l'égalité femmes-hommes et la fin d'exonérations — plutôt que le recul de l'âge."
+  ],
+  measures:[
+    {id:"m1",title:"Ramener l'âge légal à 60 ans",short:"Abroger la réforme de 2023 et rétablir le départ à 60 ans.",
+     ctx:"La [[reforme-2023|réforme de 2023]] a reculé l'âge légal de 62 à 64 ans, via le [[49-3]], suscitant un vaste mouvement social.",
+     obj:"Rétablir l'âge légal à 60 ans avec 40 [[annuites]], et porter le minimum retraite au niveau du [[SMIC]].",
+     rep:"L'IFRAP et l'Institut Montaigne estiment que revenir à 60 ans alourdit fortement le coût du système ; le [[COR]] montre que l'équilibre dépend étroitement des hypothèses d'emploi. LFI récuse les chiffrages libéraux.",
+     chi:{lfi:"Financé par cotisations, emploi et salaires",evals:[{src:"IFRAP / Montaigne",val:"Plusieurs dizaines de Md€/an à maturité, estimations divergentes"}],note:"Désaccord surtout méthodologique : le coût dépend des hypothèses retenues."},
+     src:[{l:"IFRAP — coût du NFP",u:"https://www.ifrap.org/budget-et-fiscalite/le-vrai-cout-du-programme-du-nouveau-front-populaire"}]},
+    {id:"m2",title:"Mieux compenser la pénibilité",short:"Rétablir et élargir les critères de pénibilité pour partir plus tôt.",
+     ctx:"Plusieurs critères de [[penibilite]] avaient été retirés lors de réformes précédentes.",
+     obj:"Permettre aux métiers usants de partir avant l'âge légal, en réintégrant des critères supprimés.",
+     rep:"La mesure est consensuelle sur le principe mais son coût s'ajoute à celui du retour à 60 ans, ce qui alourdit le total.",
+     chi:{lfi:"Intégré au financement global",evals:[{src:"—",val:"Rarement chiffré isolément"}],note:""},
+     src:[{l:"laec.fr — retraites",u:"https://laec.fr/"}]},
+    {id:"m3",title:"Renforcer la Sécurité sociale",short:"Vers un remboursement à 100 % des soins prescrits.",
+     ctx:"LFI veut réduire le reste à charge et le rôle des complémentaires santé privées.",
+     obj:"Rembourser à 100 % les soins prescrits par la Sécurité sociale (« Sécu intégrale »).",
+     rep:"Poste lourd et peu chiffré publiquement ; les modalités de transition avec les mutuelles restent floues.",
+     chi:{lfi:"Présenté comme un transfert (cotisations vs mutuelles)",evals:[{src:"—",val:"Peu chiffré par des tiers"}],note:""},
+     src:[{l:"laec.fr — santé",u:"https://laec.fr/"}]}
+  ],
+  etat:{h:"État des lieux — le système est-il « en faillite » ?",
+    body:["Le débat sur les retraites tourne autour d'un chiffre insaisissable : le déficit futur. Or celui-ci varie énormément selon les hypothèses de croissance, d'emploi et de salaires retenues par le [[COR]]. C'est précisément pourquoi les chiffrages s'affrontent."],
+    two:{pro:{h:"Lecture LFI / gauche",t:"Le système par [[repartition]] est proche de l'équilibre ; le financer par plus d'emploi et de cotisations est possible sans reculer l'âge. Le « trou » serait dramatisé pour justifier les réformes."},
+        con:{h:"Lecture libérale",t:"Le vieillissement démographique creuse mécaniquement le déficit ; revenir à 60 ans l'aggraverait de dizaines de milliards. Les hypothèses d'emploi de LFI seraient trop optimistes."}}},
+  chiffres:{rows:[{mesure:"Retour à 60 ans (40 annuités)",lfi:"Financé par cotisations, hausse de l'emploi et des salaires",evals:[{src:"IFRAP / Montaigne",val:"Coût de plusieurs dizaines de Md€/an à maturité ; estimations divergentes"}]}],
+    note:"Le coût dépend <b>entièrement</b> des hypothèses d'emploi et de salaires. LFI conteste les chiffrages libéraux ; ceux-ci jugent ses hypothèses optimistes."},
+  opp:{rn:"60 ans aussi, mais seulement pour les carrières longues (début avant 20 ans, 40 annuités) : bien plus restrictif.",
+    hor:"Direction opposée : dose de [[capitalisation]] collective, plutôt maintien voire recul de l'âge.",
+    ps:"Retour à 62 ans (pas 60), en conservant les 43 [[annuites]] de la [[touraine|réforme Touraine]] : plus modéré.",
+    angles:["Le financement suppose un quasi-[[garantie-emploi|plein emploi]] et une hausse des salaires non garantis.","La « Sécu intégrale » (100 % remboursement) est un poste lourd et peu chiffré."]},
+  synth:{txt:"La mesure phare — 60 ans — est <b>immédiatement applicable</b> par une loi, contrairement à d'autres chapitres. Le débat n'est pas juridique mais financier : son coût dépend d'hypothèses d'emploi que personne ne peut garantir. C'est un choix de société autant qu'un calcul.",
+    miss:["La trajectoire de financement si l'emploi ne progresse pas comme espéré.","Le chiffrage de la Sécurité sociale « intégrale »."],
+    oth:["<b>RN</b> : 60 ans mais carrières longues seulement.","<b>Horizons</b> : dose de capitalisation.","<b>PS</b> : retour à 62 ans, 43 annuités."]},
+  sources:[{l:"laec.fr — retraites",u:"https://laec.fr/"},{l:"IFRAP — coût du NFP",u:"https://www.ifrap.org/budget-et-fiscalite/le-vrai-cout-du-programme-du-nouveau-front-populaire"}]
+},
+{
+  id:"ecologie", num:"04", color:"#15803D", wash:"#E6F2EA",
+  title:"Planification écologique & énergie",
+  teaser:"La « règle verte », 100 % renouvelable en 2050, rénovation thermique, agriculture paysanne.",
+  sub:"La règle verte : ne pas prélever à la nature plus que ce qu'elle peut reconstituer.",
+  idees:[
+    "L'écologie est le fil conducteur du programme, résumé par la <mark>[[regle-verte|règle verte]]</mark>, que LFI veut inscrire dans la Constitution et mettre en œuvre par une [[planification|planification écologique]] pilotée par l'État.",
+    "Volet énergie très clivant : LFI vise le <b>100 % [[EnR|énergies renouvelables]] en 2050</b>, avec sortie du nucléaire <i>et</i> des fossiles, un plan massif de rénovation thermique et une transition agricole."
+  ],
+  measures:[
+    {id:"m1",title:"Inscrire la règle verte dans la Constitution",short:"Interdire de prélever à la nature plus qu'elle ne peut reconstituer.",
+     ctx:"LFI veut donner une valeur suprême à la contrainte écologique, au-dessus des lois ordinaires.",
+     obj:"Constitutionnaliser la [[regle-verte|règle verte]] pour encadrer toutes les politiques publiques.",
+     rep:"Une révision constitutionnelle exige l'accord du Sénat ([[article-89]]) ; la portée juridique concrète d'un tel principe est aussi débattue.",
+     chi:{lfi:"Sans coût direct",evals:[{src:"—",val:"Mesure de principe"}],note:""},
+     src:[{l:"laec.fr — règle verte",u:"https://laec.fr/"}]},
+    {id:"m2",title:"Viser 100 % d'énergies renouvelables en 2050",short:"Sortir à la fois du nucléaire et des fossiles.",
+     ctx:"LFI juge le nucléaire dangereux, coûteux et lent à construire, et parie sur les [[EnR]] et la [[sobriete]].",
+     obj:"Atteindre un mix électrique 100 % renouvelable en 2050, sans nouveau nucléaire.",
+     rep:"[[RTE]] estime que les scénarios avec nouveau nucléaire sont généralement <i>moins</i> coûteux, et qu'un 100 % renouvelable suppose un déploiement très rapide et une forte flexibilité du réseau (voir encadré).",
+     chi:{lfi:"Grand plan d'investissement",evals:[{src:"Institut Rousseau",val:"Investissement écologique en dizaines de Md€/an"},{src:"RTE",val:"Coût du mix 100 % EnR jugé un peu supérieur, mais réalisable"}],note:"Le coût total et le calendrier restent parmi les plus difficiles à chiffrer du programme."},
+     src:[{l:"RTE — Futurs énergétiques 2050",u:"https://rte-futursenergetiques2050.com/"}]},
+    {id:"m3",title:"Lancer un grand plan de rénovation thermique",short:"Rénover les logements mal isolés (« passoires »).",
+     ctx:"Le bâtiment est un gros poste d'émissions et de consommation ; les « passoires thermiques » pèsent sur les factures.",
+     obj:"Financer une rénovation performante et massive des logements.",
+     rep:"Mesure consensuelle, mais son ampleur budgétaire et la disponibilité des artisans qualifiés sont rarement chiffrées.",
+     chi:{lfi:"Investissement de la bifurcation",evals:[{src:"—",val:"Ordre de grandeur : plusieurs Md€/an"}],note:""},
+     src:[{l:"laec.fr — énergie",u:"https://laec.fr/"}]}
+  ],
+  etat:{h:"État des lieux — nucléaire ou 100 % renouvelable ?",
+    body:["C'est le sujet énergétique le plus clivant. En 2021, [[RTE]] a publié six scénarios pour 2050 : trois conservent un socle nucléaire, trois tendent vers le 100 % renouvelable. <b>Tous</b> assurent la sécurité d'approvisionnement et la [[neutralite-carbone]] — le débat porte donc sur le « comment », pas sur la faisabilité climatique."],
+    two:{pro:{h:"Plutôt nucléaire (RTE)",t:"RTE juge les scénarios avec nouveau nucléaire généralement moins coûteux dans la plupart des configurations, mais rappelle que le coût ne doit pas être le seul critère. Les scénarios nucléaires supposent de prolonger des réacteurs au-delà de 50-60 ans — ce que l'[[ASN]] ne garantit pas."},
+        con:{h:"Plutôt 100 % EnR (négaWatt, Shift)",t:"Des scénarios ([[negawatt]], [[ADEME]] 2015) montrent qu'un système 100 % renouvelable est atteignable, à condition d'un fort effort de [[sobriete]]. Le [[shift|Shift Project]] partage cette priorité à la sobriété. Ils contestent le « biais pro-nucléaire » des hypothèses de coût de RTE."}}},
+  chiffres:{rows:[{mesure:"Investissement de la bifurcation écologique",lfi:"Plan massif (part importante des dépenses)",evals:[{src:"Institut Rousseau",val:"Effort chiffré en dizaines de Md€/an"},{src:"Institut Montaigne",val:"Volet moins détaillé dans ses chiffrages"}]}],
+    note:"Le montant total et le financement précis de la bifurcation sont parmi les plus <b>difficiles à établir</b>, quel que soit l'évaluateur."},
+  opp:{rn:"Soutien au nucléaire, baisse de la TVA sur l'énergie, réticence à l'éolien et à certaines normes.",
+    hor:"Transition pragmatique et pro-industrielle, maintien du nucléaire ; pas de rupture avec le cadre européen.",
+    ps:"Planification et investissement proches — mais maintien du nucléaire dans le mix, divergence nette avec LFI.",
+    angles:["Le coût total et le financement de la bifurcation restent flous.","La faisabilité d'un 100 % renouvelable sans nucléaire en 2050 est contestée par [[RTE]]."]},
+  synth:{txt:"L'ambition écologique est structurante et documentée, mais deux incertitudes demeurent : le <b>chiffrage global</b> de la bifurcation, et le pari du <b>100 % renouvelable sans nucléaire</b>, plus coûteux selon [[RTE]] et tributaire d'un déploiement très rapide. Sur le climat, l'objectif fait consensus ; sur le chemin énergétique, non.",
+    miss:["Le coût pluriannuel total et sa trajectoire de financement.","Le plan B si le rythme de déploiement des renouvelables n'est pas tenu."],
+    oth:["<b>RN</b> : pro-nucléaire, anti-éolien.","<b>Horizons</b> : nucléaire + renouvelables.","<b>PS</b> : planification mais nucléaire maintenu."]},
+  sources:[{l:"RTE — Futurs énergétiques 2050",u:"https://rte-futursenergetiques2050.com/"},{l:"négaWatt — scénario 2050",u:"https://negawatt.org/"},{l:"laec.fr — planification",u:"https://laec.fr/"}]
+},
+{
+  id:"services-publics", num:"05", color:"#0E7490", wash:"#E4F1F5",
+  title:"Services publics : santé & école",
+  teaser:"Recrutements massifs, fin de la T2A à l'hôpital, gratuités, moins d'élèves par classe.",
+  sub:"Reconstruire les services publics : recruter, dé-marchandiser l'hôpital, garantir la gratuité.",
+  idees:[
+    "LFI propose un réinvestissement massif dans l'hôpital et l'école : recrutements, revalorisations, et <mark>fin de la [[T2A|tarification à l'activité]]</mark> jugée responsable de la « marchandisation » de l'hôpital.",
+    "S'y ajoute une logique de gratuité : remboursement à 100 % des soins, cantine et fournitures gratuites, baisse des effectifs par classe."
+  ],
+  measures:[
+    {id:"m1",title:"Recruter massivement à l'hôpital et à l'école",short:"Créer des postes de soignants et d'enseignants, revaloriser les salaires.",
+     ctx:"Manque de personnels, urgences saturées, crise d'attractivité des métiers : LFI veut un plan d'ampleur.",
+     obj:"Créer de nombreux postes publics et revaloriser les rémunérations.",
+     rep:"L'ampleur exacte est rarement chiffrée, et un obstacle concret est rarement traité : <b>trouver</b> les candidats (pénurie de soignants et d'enseignants).",
+     chi:{lfi:"Intégré au chiffrage global du NFP (~150 Md€/an)",evals:[{src:"Institut Montaigne",val:"Plusieurs Md€/an selon l'ampleur des recrutements"}],note:""},
+     src:[{l:"Institut Montaigne",u:"https://www.institutmontaigne.org/legislatives-2024/"}]},
+    {id:"m2",title:"Supprimer la tarification à l'activité (T2A)",short:"Financer l'hôpital autrement que par le « rendement » des actes.",
+     ctx:"La [[T2A]] fait dépendre les recettes de chaque hôpital du nombre d'actes, ce que LFI accuse de dégrader le soin.",
+     obj:"Remplacer la T2A par un financement à la mission ou aux besoins de santé du territoire.",
+     rep:"Le principe est partagé au-delà de la gauche, mais le modèle de remplacement précis et son coût sont peu détaillés.",
+     chi:{lfi:"Réforme du mode de financement",evals:[{src:"—",val:"Effet net peu chiffré"}],note:""},
+     src:[{l:"laec.fr — santé",u:"https://laec.fr/"}]},
+    {id:"m3",title:"Gratuités et baisse des effectifs par classe",short:"Cantine, fournitures et transports gratuits ; classes allégées.",
+     ctx:"LFI veut réduire le coût de l'école pour les familles et améliorer les conditions d'apprentissage.",
+     obj:"Rendre gratuits cantine, fournitures et transports scolaires, et diminuer le nombre d'élèves par classe.",
+     rep:"Postes récurrents et coûteux, dont le financement dépend du volet recettes du programme.",
+     chi:{lfi:"Dépense sociale",evals:[{src:"—",val:"Chiffrage global peu détaillé"}],note:""},
+     src:[{l:"laec.fr — éducation",u:"https://laec.fr/"}]}
+  ],
+  etat:null,
+  chiffres:{rows:[{mesure:"Recrutements de soignants et d'enseignants",lfi:"Intégré au chiffrage global du NFP",evals:[{src:"Institut Montaigne",val:"Plusieurs Md€/an selon l'ampleur retenue"}]}],
+    note:"Les services publics figurent parmi les <b>postes les plus lourds</b> du programme, financés par le volet recettes. L'ampleur exacte des recrutements est rarement précisée."},
+  opp:{rn:"Pas de plan de dépense massif ; école de « l'autorité » (uniforme, collège modulaire), priorité nationale sur certaines aides.",
+    hor:"« Grand chantier » école et santé, mais logique d'efficience et de réorganisation plutôt que de recrutements massifs.",
+    ps:"Proche de LFI : classes limitées à 19 élèves, renforcement des services publics — ampleur moindre.",
+    angles:["Le nombre exact de postes et leur coût pluriannuel sont rarement précisés.","La disponibilité de la main-d'œuvre (recruter des dizaines de milliers d'agents) est peu traitée."]},
+  synth:{txt:"L'orientation — réinvestir dans l'hôpital et l'école — est claire et populaire. Deux fragilités : l'<b>ampleur budgétaire</b> reste imprécise, et le programme suppose de <b>trouver</b> les personnels dans des métiers déjà en pénurie. Le « combien » et le « avec qui » manquent de projection.",
+    miss:["Le nombre de postes visés et leur coût sur cinq ans.","Comment recruter dans des métiers en tension."],
+    oth:["<b>RN</b> : autorité à l'école, peu de dépenses nouvelles.","<b>Horizons</b> : réorganiser plutôt que recruter.","<b>PS</b> : classes à 19 élèves."]},
+  sources:[{l:"laec.fr — services publics",u:"https://laec.fr/"},{l:"Institut Montaigne",u:"https://www.institutmontaigne.org/legislatives-2024/"}]
+},
+{
+  id:"immigration", num:"06", color:"#C2410C", wash:"#F7EAE1",
+  title:"Immigration & libertés publiques",
+  teaser:"Régularisation par le travail, fin de l'enfermement des enfants, défense des libertés.",
+  sub:"Une politique d'accueil digne et le respect des libertés, à rebours du discours sécuritaire.",
+  idees:[
+    "À rebours du discours sécuritaire, LFI défend une politique d'accueil : <mark>[[AES|régularisation]]</mark> des travailleurs sans-papiers, fin de l'enfermement des enfants en [[CRA]], respect du droit d'asile.",
+    "Le volet libertés est central : abrogation de lois sécuritaires jugées liberticides, garanties pour la presse et le droit de manifester."
+  ],
+  measures:[
+    {id:"m1",title:"Régulariser par le travail et les études",short:"Donner un titre de séjour aux sans-papiers qui travaillent ou étudient.",
+     ctx:"De nombreux sans-papiers occupent des emplois, souvent dans des [[metiers-tension|métiers en tension]]. La loi de 2024 a ouvert une régularisation restreinte ; LFI veut l'élargir.",
+     obj:"Faciliter la [[AES|régularisation]] des personnes intégrées par le travail ou les études.",
+     rep:"L'opposition de droite y voit un « appel d'air » ; LFI et des économistes répondent que la régularisation augmente les cotisations et sort les travailleurs de la précarité (voir encadré).",
+     chi:{lfi:"Impact présenté comme positif (cotisations)",evals:[{src:"Évaluateurs tiers",val:"Peu de chiffrage disponible ; sujet surtout politique"}],note:""},
+     src:[{l:"OCDE — migrations France 2025",u:"https://www.oecd.org/fr/publications/2025/11/international-migration-outlook-2025_355ae9fd/full-report/france_4863c606.html"}]},
+    {id:"m2",title:"Mettre fin à l'enfermement des enfants",short:"Interdire la rétention des mineurs en CRA.",
+     ctx:"La France a été critiquée pour l'enfermement d'enfants en [[CRA|centres de rétention]].",
+     obj:"Interdire la rétention administrative des mineurs.",
+     rep:"Mesure soutenue par des instances de défense des droits ; l'opposition la relie plus largement au débat sur l'éloignement des familles.",
+     chi:{lfi:"Sans enjeu budgétaire notable",evals:[{src:"—",val:"Mesure juridique"}],note:""},
+     src:[{l:"laec.fr — libertés",u:"https://laec.fr/"}]},
+    {id:"m3",title:"Défendre les libertés publiques",short:"Abroger des lois sécuritaires, protéger presse et manifestation.",
+     ctx:"LFI juge que plusieurs lois récentes ont restreint les libertés (manifestation, renseignement, presse).",
+     obj:"Abroger des dispositions jugées liberticides et renforcer les garanties démocratiques.",
+     rep:"Le débat oppose sécurité et libertés ; les critiques estiment que certaines abrogations réduiraient les moyens des forces de l'ordre.",
+     chi:{lfi:"Sans coût direct",evals:[{src:"—",val:"Mesure juridique"}],note:""},
+     src:[{l:"laec.fr — libertés",u:"https://laec.fr/"}]}
+  ],
+  etat:{h:"État des lieux — que disent les chiffres de l'immigration ?",
+    body:["Selon l'INSEE, en 2025, <b>8,0 millions d'immigrés</b> vivent en France, soit <b>11,6 %</b> de la population ; un tiers a acquis la nationalité française. L'OCDE recense environ 298 000 nouveaux immigrés permanents en 2024. En 2025, la France a délivré un record de 384 000 premiers titres de séjour, dont une minorité (~13 %) pour motif de travail. Depuis la loi du 26 janvier 2024, les [[AES|régularisations]] baissent et les éloignements augmentent."],
+    two:{pro:{h:"L'argument « régulariser »",t:"Régulariser des travailleurs déjà présents augmente les cotisations, réduit le travail illégal et répond aux besoins des [[metiers-tension|métiers en tension]]. C'est la ligne de LFI et du PS."},
+        con:{h:"L'argument « restreindre »",t:"Le RN et une partie de la droite estiment que l'accueil doit être fortement limité et conditionné à la « priorité nationale ». Ils redoutent un « appel d'air » et un coût pour les finances publiques."}}},
+  chiffres:{rows:[{mesure:"Politique d'accueil et de régularisation",lfi:"Impact budgétaire présenté comme faible, recettes via cotisations",evals:[{src:"Évaluateurs tiers",val:"Peu de chiffrage ; sujet surtout juridique et politique"}]}],
+    note:"C'est le chapitre le <b>moins budgétaire</b> et le plus politique. Les effets financiers (coûts comme recettes) sont peu documentés, de part et d'autre."},
+  opp:{rn:"Opposé frontal : priorité nationale, suppression du [[droit-du-sol]], délit de séjour irrégulier, éloignements systématiques.",
+    hor:"Ligne d'ordre et de maîtrise, sans le dispositif détaillé du RN ; position moins formalisée.",
+    ps:"Proche de LFI : régularisation par le travail (titre de séjour dès 6 mois de contrat).",
+    angles:["LFI chiffre peu l'impact budgétaire net de sa politique d'accueil.","Les effets économiques sont peu évalués par des sources indépendantes, ce qui laisse le débat sur le terrain des valeurs."]},
+  synth:{txt:"C'est le chapitre le plus <b>politique</b> et le moins chiffré. Le désaccord entre partis n'est pas d'abord budgétaire mais porte sur une vision de la société. Faute d'évaluations indépendantes solides, chacun avance ses chiffres : raison de plus pour distinguer les faits (les données INSEE/OCDE) des interprétations.",
+    miss:["Le bilan coûts/recettes chiffré d'une politique de régularisation élargie.","Des évaluations indépendantes des effets économiques."],
+    oth:["<b>RN</b> : priorité nationale, fin du droit du sol.","<b>Horizons</b> : maîtrise, sans dispositif RN.","<b>PS</b> : régularisation par le travail."]},
+  sources:[{l:"INSEE — immigrés & étrangers",u:"https://www.insee.fr/fr/statistiques/3633212"},{l:"OCDE — migrations France 2025",u:"https://www.oecd.org/fr/publications/2025/11/international-migration-outlook-2025_355ae9fd/full-report/france_4863c606.html"}]
+},
+{
+  id:"europe", num:"07", color:"#4338CA", wash:"#E9E8FA",
+  title:"Europe & international",
+  teaser:"« Désobéir » aux traités pour appliquer le programme ; indépendance et non-alignement.",
+  sub:"Négocier une refonte des traités — et, à défaut, désobéir pour pouvoir appliquer le programme.",
+  idees:[
+    "La stratégie européenne de LFI est celle du <mark>« plan A / plan B »</mark> : négocier une refonte des règles ([[pacte-stabilite|Pacte de stabilité]], concurrence, [[detaches|travailleurs détachés]]) et, à défaut, <b>désobéir</b> unilatéralement. Ce n'est pas un « Frexit », mais un rapport de force assumé.",
+    "À l'international, le programme prône l'indépendance : sortie du [[OTAN|commandement intégré de l'OTAN]], diplomatie non-alignée, protectionnisme écologique et solidaire."
+  ],
+  measures:[
+    {id:"m1",title:"Refuser les règles budgétaires européennes",short:"S'affranchir du Pacte de stabilité pour financer le programme.",
+     ctx:"Le [[pacte-stabilite|Pacte de stabilité]] limite le [[deficit]] à 3 % du PIB. LFI juge ces règles incompatibles avec ses investissements.",
+     obj:"Négocier leur refonte, et à défaut, ne pas s'y conformer (« plan B »).",
+     rep:"La [[primaute-UE|primauté du droit de l'UE]] ([[article-55]]) impose ces règles ; une désobéissance ouvrirait un conflit juridique et politique immédiat avec l'UE.",
+     chi:{lfi:"Non chiffré : préalable politique",evals:[{src:"Lecture transversale",val:"Conditionne la marge de dépense de tout le programme"}],note:""},
+     src:[{l:"laec.fr — Europe",u:"https://laec.fr/"}]},
+    {id:"m2",title:"Sortir du commandement intégré de l'OTAN",short:"Retrouver une autonomie stratégique, sans quitter l'alliance.",
+     ctx:"La France est revenue dans le commandement intégré de l'[[OTAN]] en 2009 ; LFI défend une diplomatie non-alignée.",
+     obj:"Sortir du commandement intégré tout en restant dans l'alliance, pour une voix indépendante.",
+     rep:"Dans le contexte géopolitique actuel, les critiques jugent cette sortie risquée et isolante ; les partisans y voient une souveraineté retrouvée.",
+     chi:{lfi:"Effet budgétaire indirect",evals:[{src:"—",val:"Non chiffré"}],note:""},
+     src:[{l:"laec.fr — international",u:"https://laec.fr/"}]}
+  ],
+  etat:{h:"État des lieux — peut-on vraiment « désobéir » à l'UE ?",
+    body:["La stratégie du « plan B » se heurte à un principe établi : la [[primaute-UE|primauté du droit de l'Union]]. L'[[article-55]] de la Constitution place les traités au-dessus des lois françaises, et un juge doit écarter une loi nationale qui les contredit."],
+    two:{pro:{h:"Le pari de LFI",t:"La « désobéissance » serait un levier de négociation : d'autres États ont contourné des règles européennes ; un rapport de force pourrait forcer une renégociation, sans sortir de l'UE."},
+        con:{h:"L'objection juridique",t:"Le conflit serait immédiat : contentieux devant la Cour de justice de l'UE, risque d'isolement diplomatique et de réaction des marchés. Les conséquences concrètes sont peu évaluées par LFI."}}},
+  chiffres:{rows:[{mesure:"« Désobéissance » aux règles européennes",lfi:"Non chiffré : c'est un préalable politique",evals:[{src:"Lecture transversale",val:"Conditionne la faisabilité de tout le reste : sans marge sur le Pacte de stabilité, le volet dépenses devient bien plus contraint"}]}],
+    note:"Ce chapitre n'est pas un poste budgétaire, mais il <b>commande tous les autres</b>."},
+  opp:{rn:"Plus de sortie de l'UE, mais « Alliance des nations » et remise en cause des fondements ; souverainisme de droite.",
+    hor:"Pro-européen assumé (groupe Renew) ; aucune rupture avec le cadre européen.",
+    ps:"Ancrage européen (PSE), Europe sociale et écologique ; pas de stratégie de désobéissance.",
+    angles:["La « désobéissance » se heurte à la [[primaute-UE|primauté du droit de l'UE]].","Les conséquences concrètes (contentieux, isolement, marchés) sont peu évaluées."]},
+  synth:{txt:"Ce chapitre est le <b>plus décisif pour la faisabilité de tout le programme</b> : sans marge sur les règles européennes, les dépenses des autres chapitres deviennent beaucoup plus contraintes. Or la stratégie de « désobéissance » entre en conflit direct avec le droit de l'UE, et ses conséquences ne sont pas chiffrées. C'est le maillon le plus incertain.",
+    miss:["Le scénario juridique précis en cas de conflit avec la CJUE.","L'évaluation des effets économiques d'une confrontation avec l'UE."],
+    oth:["<b>RN</b> : souverainisme, « Alliance des nations ».","<b>Horizons</b> : pro-UE, aucune rupture.","<b>PS</b> : Europe sociale, pas de désobéissance."]},
+  sources:[{l:"laec.fr — Europe & international",u:"https://laec.fr/"}]
+},
+{
+  id:"securite", num:"08", color:"#475569", wash:"#ECEEF2",
+  title:"Sécurité & justice",
+  teaser:"Police de proximité, désescalade, justice de proximité, politique des drogues fondée sur la santé.",
+  sub:"Passer d'une police du maintien de l'ordre à une police de la sûreté et de la proximité.",
+  idees:[
+    "LFI veut refonder la sécurité autour de la <mark>prévention</mark> et de la [[police-proximite|police de proximité]], en démantelant les unités d'intervention ([[BAC-BRAVM|BAC et BRAV-M]]) et en réorientant les moyens vers le lien avec la population.",
+    "Côté justice : recruter magistrats et greffiers, rétablir des tribunaux de proximité, rendre l'[[IGPN]] indépendante ; et une politique des drogues fondée sur la santé (légalisation encadrée du cannabis, [[salles-conso|salles de consommation à moindre risque]])."
+  ],
+  measures:[
+    {id:"m1",title:"Rétablir la police de proximité",short:"Démanteler les BAC et BRAV-M au profit d'une police ancrée dans les quartiers.",
+     ctx:"LFI juge la doctrine actuelle centrée sur l'intervention et l'affrontement, au détriment du lien avec la population. La [[police-proximite|police de proximité]] avait été supprimée en 2003.",
+     obj:"Rétablir une [[police-proximite|police de proximité]], démanteler les [[BAC-BRAVM|BAC et BRAV-M]], et à terme unifier police et gendarmerie dans un corps civil.",
+     rep:"La droite y voit un affaiblissement des capacités d'interpellation et un « laxisme » ; la fusion police-gendarmerie est très contestée (fin du dualisme, statut militaire des gendarmes).",
+     chi:{lfi:"Réaffectation de moyens + formation",evals:[{src:"—",val:"Coût de réorganisation, non chiffré précisément"}],note:""},
+     src:[{l:"LFI — livret Sécurité",u:"https://programme.lafranceinsoumise.fr/livrets/securite-et-surete/"}]},
+    {id:"m2",title:"Doctrine de désescalade",short:"Interdire LBD, tasers et techniques d'immobilisation létales.",
+     ctx:"Les [[LBD|armes de force intermédiaire]] ont causé des blessés graves en maintien de l'ordre, alimentant un débat sur les violences policières.",
+     obj:"Interdire le LBD 40, les grenades de désencerclement, le Taser et le plaquage ventral, au profit d'une stratégie de désescalade.",
+     rep:"Syndicats de police et droite estiment que cela priverait les forces de moyens de protection face à des situations violentes.",
+     chi:{lfi:"Sans coût direct notable",evals:[{src:"—",val:"Mesure de doctrine"}],note:""},
+     src:[{l:"LFI — programme police/justice",u:"https://programme.lafranceinsoumise.fr/livrets/securite-et-surete/"}]},
+    {id:"m3",title:"Réinvestir la justice",short:"Recruter magistrats et greffiers, rétablir les tribunaux de proximité.",
+     ctx:"La justice française souffre d'un manque chronique de moyens et de délais longs.",
+     obj:"Recruter des magistrats, greffiers et agents de la PJJ, rétablir des tribunaux de proximité, renforcer l'aide juridictionnelle et rendre l'[[IGPN]] indépendante.",
+     rep:"Le manque de moyens fait consensus ; le débat porte sur le coût et le rythme des recrutements.",
+     chi:{lfi:"Plan de recrutement",evals:[{src:"—",val:"Dépense de personnel, chiffrage global peu détaillé"}],note:""},
+     src:[{l:"laec.fr — justice",u:"https://laec.fr/"}]},
+    {id:"m4",title:"Politique des drogues fondée sur la santé",short:"Légalisation encadrée du cannabis, salles de consommation, logique portugaise.",
+     ctx:"LFI juge la prohibition inefficace et coûteuse pour la police et la justice.",
+     obj:"Créer une filière légale du cannabis (encadrée, source de recettes et d'emplois), généraliser les [[salles-conso|salles de consommation à moindre risque]] et s'inspirer de la dépénalisation portugaise de l'usage.",
+     rep:"La droite et l'extrême droite y voient une banalisation ; les effets sanitaires font débat.",
+     chi:{lfi:"Recettes fiscales + économies sur le pénal",evals:[{src:"LFI",val:"Estime libérer une part importante du temps pénal ; recettes variables selon le modèle"}],note:""},
+     src:[{l:"LFI — livret Sécurité",u:"https://programme.lafranceinsoumise.fr/livrets/securite-et-surete/"}]}
+  ],
+  etat:{h:"État des lieux — prévention ou répression ?",
+    body:["La sécurité oppose deux doctrines. LFI parie sur la prévention, les moyens sociaux et la désescalade ; la droite et l'extrême droite misent sur la fermeté et une présence policière armée. Le débat s'est cristallisé récemment autour du désarmement des polices municipales, mesure sur laquelle LFI a semblé reculer face aux critiques."],
+    two:{pro:{h:"Approche « prévention » (LFI)",t:"Une [[police-proximite|police de proximité]] et des moyens sociaux traiteraient les causes de la délinquance ; la désescalade réduirait les tensions. LFI cite des sondages favorables au remplacement des BAC par une police de proximité."},
+        con:{h:"Approche « fermeté » (droite, RN)",t:"La présence policière armée et des peines plus sévères dissuaderaient la délinquance. Le désarmement et l'interdiction des LBD priveraient les forces de moyens ; la légalisation du cannabis serait une capitulation."}}},
+  chiffres:{rows:[
+    {mesure:"Recrutements police de proximité & justice",lfi:"Réaffectation + créations de postes",evals:[{src:"—",val:"Dépense de personnel, chiffrage global peu détaillé"}]},
+    {mesure:"Légalisation encadrée du cannabis",lfi:"Recettes fiscales + économies pénales",evals:[{src:"Ordres de grandeur",val:"Recettes potentielles (plusieurs Md€ selon les modèles) et économies sur le pénal, très variables"}]}],
+    note:"Chapitre surtout <b>doctrinal</b> : l'enjeu est le modèle policier, pas le budget. Le volet cannabis est le seul à comporter des recettes, mais leur montant est incertain."},
+  opp:{rn:"« Fin de la récréation » : peines plancher, plus de policiers armés, fermeté. Oppose radicalement au désarmement et à la légalisation du cannabis.",
+    hor:"Restauration de l'ordre et de l'autorité de l'État, changements annoncés en justice ; ligne de fermeté régalienne.",
+    ps:"Approche élargie des « insécurités » pour ne pas laisser le terrain à la droite ; plus modéré que LFI sur la réforme de la police.",
+    angles:["La fusion police-gendarmerie est très contestée et peu détaillée.","Le désarmement des polices municipales a suscité une polémique et un recul de LFI.","Les effets réels de la police de proximité sur la délinquance sont débattus."]},
+  synth:{txt:"C'est un chapitre <b>doctrinal</b> (prévention contre répression), applicable pour l'essentiel par la loi. Le principal obstacle n'est pas budgétaire mais politique : l'acceptabilité de mesures comme la fusion police-gendarmerie ou le désarmement, sur lesquelles LFI a déjà tangué. La légalisation du cannabis apporterait, elle, des recettes — d'un montant incertain.",
+    miss:["Le chiffrage précis des recrutements police et justice.","Les modalités et le calendrier de la fusion police-gendarmerie.","Une évaluation des effets de la police de proximité sur la délinquance."],
+    oth:["<b>RN</b> : fermeté, peines plancher, police armée.","<b>Horizons</b> : autorité de l'État renforcée.","<b>PS</b> : « insécurités » au pluriel, plus modéré."]},
+  sources:[{l:"LFI — livret Sécurité & sûreté",u:"https://programme.lafranceinsoumise.fr/livrets/securite-et-surete/"},{l:"laec.fr — sécurité & justice",u:"https://laec.fr/"}]
+},
+{
+  id:"agriculture", num:"09", color:"#4D7C0F", wash:"#EEF4E1",
+  title:"Agriculture & alimentation",
+  teaser:"Prix planchers, 300 000 emplois paysans, sortie des pesticides, refonte de la PAC.",
+  sub:"Une agriculture écologique et paysanne, qui nourrit la population et fait vivre celles et ceux qui en vivent.",
+  idees:[
+    "LFI veut rompre avec le modèle agro-industriel : garantir un revenu paysan par des <mark>[[prix-planchers|prix planchers]]</mark>, créer 300 000 emplois agricoles, et engager une transition vers l'agriculture écologique et paysanne.",
+    "Levier européen : refonder la [[PAC]] en passant des [[aides-hectare|aides à l'hectare]] à des aides à l'actif, protéger la production par des [[clauses-miroirs]] à l'importation, et sortir des pesticides les plus dangereux."
+  ],
+  measures:[
+    {id:"m1",title:"Instaurer des prix planchers",short:"Garantir aux agriculteurs un prix de vente minimum couvrant leurs coûts.",
+     ctx:"Face à la crise agricole, de nombreux producteurs vendent en dessous de leurs coûts de production, pris en étau entre l'industrie et la grande distribution.",
+     obj:"Fixer des [[prix-planchers|prix planchers]] annuels (via une conférence sur les prix), interdire les ventes à perte et encadrer les marges de l'agroalimentaire et de la distribution.",
+     rep:"Mise en œuvre complexe, risque de tension avec les règles européennes de concurrence, et effet possible sur les prix à la consommation.",
+     chi:{lfi:"Mesure de régulation",evals:[{src:"—",val:"Coût public direct limité ; effet redistributif dans la filière"}],note:""},
+     src:[{l:"Vert — programmes agricoles 2024",u:"https://vert.eco/articles/europeennes-que-proposent-les-candidats-pour-repondre-aux-defis-de-lagriculture"}]},
+    {id:"m2",title:"Créer 300 000 emplois agricoles",short:"Faciliter l'installation et l'accès à la terre (réforme agraire).",
+     ctx:"La moitié des agriculteurs partiront à la retraite dans la décennie : c'est un enjeu de renouvellement des générations.",
+     obj:"Soutenir massivement l'installation, faciliter l'accès au foncier ([[reforme-agraire|réforme agraire]]) et sécuriser le désendettement des paysans.",
+     rep:"Objectif chiffré ambitieux, dépendant de l'attractivité du métier et du revenu ; la trajectoire pour y parvenir est peu détaillée.",
+     chi:{lfi:"Aides à l'installation ; MAEC triplées",evals:[{src:"LFI",val:"Tripler les mesures agro-environnementales de 260 à 780 M€"}],note:""},
+     src:[{l:"LFI — livret Agriculture",u:"https://programme.lafranceinsoumise.fr/livrets/agriculture-et-alimentation/"}]},
+    {id:"m3",title:"Sortir des pesticides dangereux",short:"Interdire immédiatement glyphosate et néonicotinoïdes.",
+     ctx:"Le modèle agro-industriel repose sur des intrants chimiques aux effets documentés sur la santé et la biodiversité.",
+     obj:"Interdire immédiatement [[glyphosate|glyphosate et néonicotinoïdes]] et planifier la sortie des pesticides de synthèse.",
+     rep:"Une partie des syndicats agricoles et la droite craignent une perte de compétitivité faute d'alternatives, et une distorsion avec les produits importés.",
+     chi:{lfi:"Accompagnement de la transition",evals:[{src:"—",val:"Coût de transition peu chiffré"}],note:""},
+     src:[{l:"laec.fr — agriculture",u:"https://laec.fr/"}]},
+    {id:"m4",title:"Refonder la PAC",short:"Passer des aides à l'hectare à des aides à l'actif.",
+     ctx:"La [[PAC]] (~58 Md€/an à l'échelle de l'UE) verse surtout des aides à l'hectare, ce qui favorise les grandes exploitations.",
+     obj:"Réorienter les aides vers l'emploi, la qualité et les services écologiques ([[aides-hectare|aides à l'actif]]), et appliquer des [[clauses-miroirs]] aux importations.",
+     rep:"Toute refonte de la PAC exige un accord européen — hors de portée d'un gouvernement français seul.",
+     chi:{lfi:"Réorientation d'aides existantes",evals:[{src:"—",val:"Pas de coût national net direct ; dépend de l'UE"}],note:""},
+     src:[{l:"Vert — PAC & programmes",u:"https://vert.eco/articles/europeennes-que-proposent-les-candidats-pour-repondre-aux-defis-de-lagriculture"}]}
+  ],
+  etat:{h:"État des lieux — les prix planchers, solution miracle ?",
+    body:["Les [[prix-planchers|prix planchers]] font l'objet d'un rare consensus d'affichage : LFI, le PS, les Écologistes <i>et</i> le RN les défendent. Mais leur mise en œuvre concrète divise. Et l'essentiel se joue au niveau européen : la [[PAC]] pèse ~58 Md€/an, dont ~9,5 Md€/an pour la France."],
+    two:{pro:{h:"L'argument « ça sauve les paysans »",t:"Un prix minimum garanti assure un revenu et répond à la détresse du monde agricole. C'est une réponse directe à la crise, plébiscitée sur un large spectre politique."},
+        con:{h:"L'argument « usine à gaz »",t:"La fixation administrative des prix est complexe, potentiellement contraire au droit européen de la concurrence, et pourrait renchérir les prix ou encourager la surproduction."}}},
+  chiffres:{rows:[
+    {mesure:"Prix planchers & encadrement des marges",lfi:"Régulation",evals:[{src:"—",val:"Coût public direct limité ; effet redistributif"}]},
+    {mesure:"Installation & agro-environnement",lfi:"Soutien à l'installation ; MAEC 260→780 M€",evals:[{src:"LFI",val:"Triplement des mesures agro-environnementales"}]}],
+    note:"L'essentiel se joue au niveau <b>européen</b> (la PAC), ce qui limite la marge d'un gouvernement français seul."},
+  opp:{rn:"Soutient aussi les prix planchers et le « produire français », mais rejette la sortie rapide des pesticides et prône une PAC simplifiée ; souverainisme agricole.",
+    hor:"Ligne de compétitivité et de simplification des normes, plutôt que des prix administrés.",
+    ps:"Proche de LFI : prix planchers et PAC réorientée, dans une logique social-écologique.",
+    angles:["La compatibilité des prix planchers avec le droit européen de la concurrence.","La refonte de la PAC dépend d'un accord des 27.","Comment atteindre concrètement 300 000 installations."]},
+  synth:{txt:"Chapitre cohérent et populaire (le revenu paysan fait consensus), mais suspendu à deux dépendances : le <b>cadre européen</b> (la PAC et le droit de la concurrence) et la question des <b>alternatives</b> aux pesticides interdits. Le volet national (prix planchers, foncier, installation) est actionnable ; la refonte de la PAC, non, sans accord européen.",
+    miss:["La compatibilité juridique des prix planchers avec l'UE.","La trajectoire concrète des 300 000 emplois.","Les alternatives aux pesticides interdits immédiatement."],
+    oth:["<b>RN</b> : prix planchers mais pro-pesticides.","<b>Horizons</b> : compétitivité, moins de normes.","<b>PS</b> : très proche de LFI."]},
+  sources:[{l:"LFI — livret Agriculture & alimentation",u:"https://programme.lafranceinsoumise.fr/livrets/agriculture-et-alimentation/"},{l:"Vert — programmes agricoles",u:"https://vert.eco/articles/europeennes-que-proposent-les-candidats-pour-repondre-aux-defis-de-lagriculture"}]
+},
+{
+  id:"outre-mer", num:"10", color:"#0369A1", wash:"#E4EEF6",
+  title:"Outre-mer",
+  teaser:"Plan d'égalité réelle, lutte contre la vie chère, territoires-pilotes de l'écologie.",
+  sub:"Faire vivre le principe d'égalité dans des territoires marqués par la dépendance et la vie chère.",
+  idees:[
+    "LFI part d'un constat : les outre-mer subissent des inégalités durables (chômage, [[vie-chere|vie chère]], services publics dégradés) et propose un <mark>plan d'égalité réelle</mark> avec l'Hexagone.",
+    "Deux axes : un investissement massif dans les services publics et la [[continuite-territoriale]], et un développement endogène (circuits courts, coopératives, protection des productions locales), les outre-mer devenant des territoires-pilotes de la [[planification|planification écologique]]."
+  ],
+  measures:[
+    {id:"m1",title:"Un plan d'investissement pour l'égalité réelle",short:"Rattraper le niveau des services publics (santé, eau, écoles, transports).",
+     ctx:"Les services publics ultramarins sont souvent en deçà des standards de l'Hexagone (accès à l'eau, hôpitaux, écoles).",
+     obj:"Engager un plan pluriannuel d'investissement, financé notamment en supprimant des exemptions fiscales ultramarines bénéficiant aux ultra-riches.",
+     rep:"Le coût d'un rattrapage massif est élevé et n'est pas précisément chiffré.",
+     chi:{lfi:"Investissement, financé en partie par la fin de niches fiscales",evals:[{src:"—",val:"Coût global peu chiffré"}],note:""},
+     src:[{l:"laec.fr — outre-mer",u:"https://laec.fr/"}]},
+    {id:"m2",title:"Lutter contre la vie chère",short:"Encadrer les prix et les marges, agir sur les monopoles de distribution.",
+     ctx:"Les prix, notamment alimentaires, sont nettement plus élevés qu'en métropole, en partie du fait de l'éloignement et de la concentration de quelques grands distributeurs.",
+     obj:"Encadrer les prix et les marges, agir sur les situations de monopole et repenser l'[[octroi-de-mer|octroi de mer]] en « bouclier douanier » protecteur des productions locales.",
+     rep:"L'octroi de mer finance les collectivités locales : le réformer est délicat ; l'encadrement des prix se heurte au droit de la concurrence.",
+     chi:{lfi:"Régulation",evals:[{src:"—",val:"Effet budgétaire indirect"}],note:""},
+     src:[{l:"laec.fr — outre-mer",u:"https://laec.fr/"}]},
+    {id:"m3",title:"Continuité territoriale, langues & cultures",short:"Dessertes à tarifs réglementés, désenclavement, langues d'outre-mer.",
+     ctx:"Le coût et les difficultés de transport pèsent sur la vie quotidienne ; certains territoires (Guyane) restent enclavés.",
+     obj:"Garantir la [[continuite-territoriale]] par des dessertes de service public à tarifs réglementés, et soutenir l'enseignement des langues et cultures d'outre-mer.",
+     rep:"Le coût des dessertes de service public et l'ampleur du dispositif sont débattus.",
+     chi:{lfi:"Dépense de service public",evals:[{src:"—",val:"Chiffrage peu détaillé"}],note:""},
+     src:[{l:"laec.fr — outre-mer",u:"https://laec.fr/"}]},
+    {id:"m4",title:"Territoires-pilotes de la planification écologique",short:"Faire des outre-mer des laboratoires de la bifurcation (énergie, mer, biodiversité).",
+     ctx:"Les outre-mer disposent d'un fort potentiel (soleil, mer, géothermie) et d'enjeux majeurs de biodiversité et d'autonomie énergétique.",
+     obj:"En faire des territoires-pilotes de la [[planification|planification écologique]] : énergie, politique maritime, biodiversité, circuits courts.",
+     rep:"La réussite dépend des financements et de l'ingénierie locale disponibles.",
+     chi:{lfi:"Investissement écologique",evals:[{src:"—",val:"Intégré à la bifurcation, peu détaillé"}],note:""},
+     src:[{l:"laec.fr — outre-mer",u:"https://laec.fr/"}]}
+  ],
+  etat:{h:"État des lieux — d'où vient la vie chère ?",
+    body:["La [[vie-chere|vie chère]] est le cœur du malaise ultramarin : les prix alimentaires y sont nettement supérieurs à ceux de l'Hexagone. En cause : l'éloignement, la dépendance aux importations, l'[[octroi-de-mer|octroi de mer]] et la concentration de la distribution. Le [[chlordecone|chlordécone]] aux Antilles symbolise, lui, les inégalités environnementales. Le statut de [[RUP|région ultrapériphérique]] autorise des adaptations, mais dans le cadre de l'UE."],
+    two:{pro:{h:"Encadrer les prix",t:"Face à des marchés concentrés, l'encadrement des prix et des marges, et la réforme de l'octroi de mer, protégeraient le pouvoir d'achat. C'est la ligne de LFI."},
+        con:{h:"Libéraliser la concurrence",t:"D'autres estiment qu'il faut surtout ouvrir la concurrence pour faire baisser les prix, et que toucher à l'octroi de mer priverait les communes de recettes essentielles."}}},
+  chiffres:{rows:[
+    {mesure:"Plan de rattrapage des services publics",lfi:"Investissement, financé en partie par la fin de niches fiscales ultramarines",evals:[{src:"—",val:"Coût global peu chiffré"}]},
+    {mesure:"Lutte contre la vie chère",lfi:"Encadrement des prix et des marges",evals:[{src:"—",val:"Effet budgétaire indirect ; se heurte au droit de la concurrence"}]}],
+    note:"Chapitre d'<b>investissement</b> dont le coût global n'est pas précisément projeté, et dont plusieurs outils dépendent du cadre européen (RUP)."},
+  opp:{rn:"Discours centré sur l'identité et la sécurité, priorité nationale ; peu de plan d'investissement structurel spécifique aux outre-mer.",
+    hor:"Logique de développement économique et d'attractivité, moins d'encadrement des prix.",
+    ps:"Proche de LFI sur l'égalité réelle et les services publics ; ligne social-écologique.",
+    angles:["Le coût du rattrapage est massif et peu chiffré.","La réforme de l'octroi de mer est complexe (il finance les collectivités).","L'encadrement des prix se heurte au droit de la concurrence et au cadre européen."]},
+  synth:{txt:"Le diagnostic — vie chère, services publics dégradés — est largement partagé. Mais le <b>financement du rattrapage</b> reste imprécis, et les principaux outils (réforme de l'octroi de mer, encadrement des prix) sont soit politiquement délicats, soit contraints par le droit européen. C'est un chapitre d'ambition sociale forte, encore peu projeté financièrement.",
+    miss:["Le coût pluriannuel chiffré du rattrapage.","La réforme précise de l'octroi de mer.","La compatibilité de l'encadrement des prix avec le droit de la concurrence."],
+    oth:["<b>RN</b> : identité et sécurité.","<b>Horizons</b> : développement économique.","<b>PS</b> : égalité réelle, proche de LFI."]},
+  sources:[{l:"laec.fr — Outre-mer",u:"https://laec.fr/"},{l:"programme LFI — livrets",u:"https://programme.lafranceinsoumise.fr/livrets/"}]
+}
+];
+
+const P=processInline;
+
+const tg=document.getElementById('themegrid');
+THEMES.forEach(t=>{
+  const b=document.createElement('button');
+  b.className='tcard';b.style.setProperty('--c',t.color);
+  b.onclick=()=>go('theme/'+t.id);
+  b.innerHTML=`<div class="band"><span class="n">Chapitre ${t.num}</span><span class="ar">→</span></div>
+    <div class="body"><h3>${t.title}</h3><p>${t.teaser}</p>
+    <span class="cnt">${t.measures.length} mesures · chiffres · oppositions</span></div>`;
+  tg.appendChild(b);
+});
+
+const topnav=document.getElementById('topnav');
+[['accueil','Accueil'],['glossaire','Définitions'],['methode','Méthode']].forEach(([id,l])=>{
+  const b=document.createElement('button');b.textContent=l;b.dataset.nav=id;b.onclick=()=>go(id);topnav.appendChild(b);
+});
+
+function buildGloss(filter=""){
+  const gl=document.getElementById('glist');
+  const f=filter.trim().toLowerCase();
+  gl.innerHTML=Object.keys(DEFS).map(k=>{
+    const t=DEFS[k];
+    if(f && !t[0].toLowerCase().includes(f) && !t[1].toLowerCase().includes(f))return"";
+    return `<div class="gitem"><dt>${t[0]}</dt><dd>${t[1]}</dd></div>`;
+  }).join('')||`<p style="color:var(--ink-faint)">Aucun terme ne correspond à « ${filter} ».</p>`;
+}
+function filterGloss(v){buildGloss(v);}
+buildGloss();
+
+function renderTheme(t){
+  const idx=THEMES.findIndex(x=>x.id===t.id);
+  const prev=THEMES[idx-1],next=THEMES[idx+1];
+  const el=document.getElementById('v-theme');
+  el.style.setProperty('--theme',t.color);
+  el.style.setProperty('--theme-wash',t.wash);
+  const etatHTML=t.etat?`
+    <div class="etat">
+      <div class="h">⌖ ${t.etat.h}</div>
+      <div class="c">
+        ${t.etat.body.map(p=>`<p>${P(p)}</p>`).join('')}
+        ${t.etat.two?`<div class="two">
+          <div class="col pro"><h5>${t.etat.two.pro.h}</h5><p>${P(t.etat.two.pro.t)}</p></div>
+          <div class="col con"><h5>${t.etat.two.con.h}</h5><p>${P(t.etat.two.con.t)}</p></div>
+        </div>`:''}
+      </div>
+    </div>`:'';
+  el.innerHTML=`
+  <div class="t-hero"><div class="in">
+    <button class="t-back" onclick="go('accueil')">← Tous les chapitres</button>
+    <div class="t-num">Chapitre ${t.num} / ${String(THEMES.length).padStart(2,'0')}</div>
+    <h1>${t.title}</h1>
+    <p class="sub">« ${t.sub} »</p>
+  </div></div>
+  <div class="subnav"><div class="in" id="subnav-in">
+    <button data-sec="s-idees" class="on">Ce que propose LFI</button>
+    <button data-sec="s-chiffres">Les chiffres</button>
+    <button data-sec="s-opp">L'opposition</button>
+    <button data-sec="s-synth">Synthèse</button>
+  </div></div>
+  <div class="t-body">
+    <section class="chapter" id="s-idees">
+      <div class="rolehead lfi"><span class="pill">● Ce que propose LFI</span></div>
+      <p class="roledesc">Les grandes idées, puis chaque mesure — cliquez pour ouvrir sa fiche (contexte, objectif, reproches, chiffrage, sources).</p>
+      <div class="prose">${t.idees.map(p=>`<p>${P(p)}</p>`).join('')}</div>
+      <div class="mgrid">
+        ${t.measures.map(m=>`<button class="mcard" onclick="showMeasure('${t.id}','${m.id}')">
+          <span class="mk">Mesure</span><h4>${m.title}</h4><p>${P(m.short)}</p>
+          <span class="open">Voir le détail <span class="ar">→</span></span></button>`).join('')}
+      </div>
+      ${etatHTML}
+    </section>
+    <section class="chapter" id="s-chiffres">
+      <div class="rolehead chf"><span class="pill">● Ce que disent les chiffres</span></div>
+      <p class="roledesc">Le chiffrage de LFI face aux évaluateurs indépendants. Les montants sont des ordres de grandeur, aux méthodes discutées.</p>
+      <div class="ledger">
+        ${t.chiffres.rows.map(r=>`<div class="lrow">
+          <div class="lcell l"><div class="mz"><span class="lab">Mesure</span>${P(r.mesure)}</div>
+            <div style="margin-top:10px"><span class="fig">${r.lfi}</span><br><span class="lab" style="color:var(--lfi-d);margin-top:5px">chiffrage LFI / NFP</span></div></div>
+          <div class="lcell"><div class="evals">${r.evals.map(e=>`<div class="eval"><span class="src">${e.src}</span>${e.val}</div>`).join('')}</div></div>
+        </div>`).join('')}
+        <div class="lnote">${P(t.chiffres.note)}</div>
+      </div>
+    </section>
+    <section class="chapter" id="s-opp">
+      <div class="rolehead opp"><span class="pill">● Ce qu'on peut opposer</span></div>
+      <p class="roledesc">Les projets des autres partis sur ce thème, puis les angles morts du programme de LFI.</p>
+      <div class="oppgrid">
+        <div class="oppcard rn"><div class="p">Rassemblement National</div><p>${P(t.opp.rn)}</p></div>
+        <div class="oppcard hor"><div class="p">Horizons</div><p>${P(t.opp.hor)}</p></div>
+        <div class="oppcard ps"><div class="p">Parti Socialiste</div><p>${P(t.opp.ps)}</p></div>
+      </div>
+      <div class="angles"><h4>⚑ Angles morts & manques de projection</h4>
+        <ul>${t.opp.angles.map(a=>`<li>${P(a)}</li>`).join('')}</ul></div>
+    </section>
+    <section class="chapter" id="s-synth">
+      <div class="synth">
+        <div class="h">Synthèse du chapitre</div>
+        <h3>${t.title}</h3>
+        <p>${P(t.synth.txt)}</p>
+        <div class="cols">
+          <div class="box miss"><h5>Ce qui manque encore</h5><ul>${t.synth.miss.map(x=>`<li>${P(x)}</li>`).join('')}</ul></div>
+          <div class="box oth"><h5>Ce que proposent les autres</h5><ul>${t.synth.oth.map(x=>`<li>${P(x)}</li>`).join('')}</ul></div>
+        </div>
+      </div>
+      <div style="padding-top:30px">
+        <div class="roletag" style="color:var(--ink-soft);margin-bottom:12px"><span class="dot" style="background:var(--flag)"></span>Sources & pour aller plus loin</div>
+        <div class="srcs">${t.sources.map(s=>`<a href="${s.u}" target="_blank" rel="noopener">${s.l}<span class="ex">↗</span></a>`).join('')}</div>
+      </div>
+    </section>
+    <div class="pager">
+      ${prev?`<button onclick="go('theme/${prev.id}')">← Chapitre précédent<b>${prev.title}</b></button>`:`<button disabled>← Début<b>Premier chapitre</b></button>`}
+      ${next?`<button class="next" onclick="go('theme/${next.id}')">Chapitre suivant →<b>${next.title}</b></button>`:`<button class="next" disabled>Fin →<b>Dernier chapitre</b></button>`}
+    </div>
+  </div>`;
+  el.querySelectorAll('#subnav-in button').forEach(b=>b.onclick=()=>{document.getElementById(b.dataset.sec).scrollIntoView({behavior:'smooth',block:'start'});});
+}
+
+function showMeasure(themeId,mId){
+  const t=THEMES.find(x=>x.id===themeId);const m=t.measures.find(x=>x.id===mId);
+  const modal=document.getElementById('modal');modal.className='modal';
+  modal.innerHTML=`
+    <div class="top"><div class="mk">Mesure · ${t.title}</div>
+      <h3>${m.title}</h3>
+      <button class="close" onclick="closeModal()" aria-label="Fermer">✕</button></div>
+    <div class="content">
+      <div class="mblock ctx"><div class="lbl">◆ Contexte — pourquoi cette mesure</div><p>${P(m.ctx)}</p></div>
+      <div class="mblock obj"><div class="lbl" style="color:var(--lfi-d)">● Objectif — ce qu'elle vise</div><p>${P(m.obj)}</p></div>
+      <div class="mblock rep"><div class="lbl" style="color:var(--opp-d)">● Ce qui lui est reproché</div><p>${P(m.rep)}</p></div>
+      <div class="mblock chi"><div class="lbl" style="color:var(--chf-d)">● Chiffrage</div>
+        <p><span class="fig" style="color:var(--chf-d)">${m.chi.lfi}</span> <span style="font-family:var(--mono);font-size:11px;color:var(--lfi-d)">(LFI)</span></p>
+        ${m.chi.evals.map(e=>`<p class="eval" style="margin-top:9px"><span class="src" style="color:var(--chf)">${e.src}</span>${e.val}</p>`).join('')}
+        ${m.chi.note?`<p style="margin-top:12px;font-size:13.5px;color:var(--ink-faint)">${P(m.chi.note)}</p>`:''}</div>
+      <div class="mblock"><div class="lbl" style="color:var(--flag)">◆ Sources</div>
+        <div class="msrc">${m.src.map(s=>`<a href="${s.u}" target="_blank" rel="noopener">${s.l} ↗</a>`).join('')}</div></div>
+    </div>`;
+  openOverlay();
+}
+
+function showDef(key){
+  const d=DEFS[key];if(!d)return;
+  const modal=document.getElementById('modal');modal.className='modal def';
+  modal.innerHTML=`<div class="top"><div class="mk">Définition</div>
+    <h3>${d[0]}</h3><button class="close" onclick="closeModal()" aria-label="Fermer">✕</button></div>
+    <div class="content"><p>${d[1]}</p>
+    <p style="margin-top:16px"><button class="term" onclick="closeModal();go('glossaire')" style="border-bottom-color:var(--ink-soft);color:var(--ink-soft)">Voir toutes les définitions →</button></p></div>`;
+  openOverlay();
+}
+
+let lastFocus=null;
+function openOverlay(){const o=document.getElementById('overlay');lastFocus=document.activeElement;o.classList.add('on');document.body.style.overflow='hidden';o.querySelector('.close')&&o.querySelector('.close').focus();}
+function closeModal(){document.getElementById('overlay').classList.remove('on');document.body.style.overflow='';lastFocus&&lastFocus.focus&&lastFocus.focus();}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+function go(route){location.hash=route;}
+function render(){
+  const hash=(location.hash||'#accueil').slice(1);
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+  topnav.querySelectorAll('button').forEach(b=>b.classList.remove('on'));
+  closeModal();
+  if(hash.startsWith('theme/')){
+    const t=THEMES.find(x=>x.id===hash.split('/')[1]);
+    if(t){renderTheme(t);document.getElementById('v-theme').classList.add('on');window.scrollTo(0,0);return;}
+  }
+  if(hash==='glossaire'){document.getElementById('v-glossaire').classList.add('on');topnav.querySelector('[data-nav=glossaire]').classList.add('on');window.scrollTo(0,0);return;}
+  if(hash==='methode'){document.getElementById('v-methode').classList.add('on');topnav.querySelector('[data-nav=methode]').classList.add('on');window.scrollTo(0,0);return;}
+  document.getElementById('v-accueil').classList.add('on');
+  const a=topnav.querySelector('[data-nav=accueil]');if(a)a.classList.add('on');
+}
+window.addEventListener('hashchange',render);
+render();
+</script>
+</body>
+</html>
