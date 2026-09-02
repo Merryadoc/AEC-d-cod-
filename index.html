@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>L'Avenir en commun — dossier décodé</title>
+<title>L'Avenir en commun — Dossier décodé (édition 2025)</title>
 <meta name="description" content="Le programme de La France insoumise (L'Avenir en commun, éditions 2022 et 2025) décodé mesure par mesure : contexte, chiffrage, positions des autres partis et points manquants. Dossier pédagogique et indépendant.">
 <meta name="theme-color" content="#7C3AED">
 <meta property="og:type" content="website">
@@ -329,12 +329,60 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:var(--mut);font-siz
 .sres .sx{font-size:13px;color:var(--ink2)}
 mark.hl{background:#fde68a;padding:0 2px;border-radius:2px}
 @media print{
- #bar,header.top,footer,.pager,.mtools,.crumb{display:none!important}
- .mez .body{display:block!important}
- .mez{break-inside:avoid;border-color:#ccc;margin:8px 0}
- body{background:#fff;font-size:12px}
- .page{padding:0}
+ /* --- masquer l'interface --- */
+ #bar,header.top,footer .fnav,.pager,.mtools,.crumb,.navtoggle,.hdr-tools,.skip,#modal,.toc,.gsearch,.btn,.copy{display:none!important}
+ /* --- base lisible --- */
+ @page{size:A4;margin:16mm 14mm 18mm}
+ html,body{background:#fff!important;color:#000;font-size:10.5pt;line-height:1.5}
+ .wrap{max-width:none;padding:0}
+ .page{padding:0;animation:none}
  a{color:#000;text-decoration:none}
+ /* --- titres : jamais seuls en bas de page --- */
+ h1,h2,h3,.mt,.exh,.vizt,.mqt,.ideeq,.frt,.nt,.gt,.clel{break-after:avoid-page;page-break-after:avoid;break-inside:avoid;page-break-inside:avoid}
+ h1{font-size:20pt;margin:0 0 6pt}
+ h2{font-size:14pt;margin:14pt 0 4pt}
+ h3{font-size:12pt}
+ .kicker,.sph{break-after:avoid-page;page-break-after:avoid}
+ /* --- blocs insécables --- */
+ .mez,.block,.exi,.dbt,.vizbox,.srcbox,.gitem,.cle,.idee,.mq,.fr,.ncard,.ent,.chap,.ej,.legend div,.note,.resume,.stat,.vrow,.sres{
+   break-inside:avoid;page-break-inside:avoid}
+ /* --- une sous-partie/section reste groupée si possible --- */
+ .spart{break-inside:auto;page-break-inside:auto;margin-top:12pt}
+ .spart>h2,.spart>.sph,.spart>.spi{break-after:avoid-page;page-break-after:avoid}
+ /* --- paragraphes : pas de lignes orphelines --- */
+ p,li,.frx,.ideet,.ms,.nx,.cled{orphans:3;widows:3}
+ p{margin:0 0 6pt}
+ /* --- tout déplier --- */
+ .mez .body{display:block!important}
+ .mez{border:1px solid #bbb;margin:8pt 0;break-inside:avoid;page-break-inside:avoid}
+ .mez>button{padding:8pt 10pt}
+ .mez .mi{background:#eee!important;color:#000!important;border-color:#bbb}
+ /* --- blocs colorés lisibles en noir et blanc --- */
+ .block{background:#fff!important;border:1px solid #ccc;border-left:3px solid #666;padding:8pt 10pt;margin-top:8pt}
+ .b-chi{border-left-color:#7C3AED}.b-opp{border-left-color:#2563EB}
+ .b-man{border-left-color:#B45309}.b-ex{border-left-color:#15803D}
+ .b-lien{border-left-color:#2563EB}.b-ctx{border-left-color:#999}
+ .bh{color:#000!important;font-weight:700}
+ /* --- grilles en colonnes pour économiser le papier --- */
+ .ngrid,.clegrid,.srclist,.enjeux,.chaps,.entrees,.legend{display:block}
+ .gitem,.cle,.ncard,.srcitem{border:1px solid #ddd;margin:0 0 5pt;padding:7pt 9pt}
+ /* --- graphiques --- */
+ .vizbox{border:1px solid #ccc;margin-top:10pt}
+ .vbar{background:#666!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .vrow.vhi .vbar{background:#7C3AED!important}
+ .vbarw{background:#eee!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ /* --- afficher les URL des sources --- */
+ .srcbox a::after,.srcitem::after{content:" (" attr(href) ")";font-family:var(--mono);font-size:7.5pt;color:#555;word-break:break-all}
+ .srcbox{background:#fafafa!important;border:1px solid #ddd;margin-top:10pt}
+ /* --- termes du glossaire : plus de bouton --- */
+ .term{border:0;color:#000;font-weight:600;background:none}
+ /* --- nouvelle page par chapitre et par notion --- */
+ .page>.wrap,.wrap.page{break-before:auto}
+ .frise .fr{margin-bottom:7pt}
+ .statline{border:0;padding:0}
+ footer{border-top:1px solid #ccc;margin-top:12pt;padding-top:8pt;font-size:8.5pt;color:#444}
+ .figleg,.vsrc,.cles,.frx{color:#444}
+ img,svg{max-width:100%}
 }
 @media(max-width:640px){
  .navtoggle{display:inline-block}
