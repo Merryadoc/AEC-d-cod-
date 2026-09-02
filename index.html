@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>L'Avenir en commun — dossier décodé (édition 2025)</title>
+<title>L'Avenir en commun — dossier décodé</title>
 <meta name="description" content="Le programme de La France insoumise (L'Avenir en commun, éditions 2022 et 2025) décodé mesure par mesure : contexte, chiffrage, positions des autres partis et points manquants. Dossier pédagogique et indépendant.">
 <meta name="theme-color" content="#7C3AED">
 <meta property="og:type" content="website">
@@ -3306,6 +3306,52 @@ var VIZF={
 Object.keys(VIZF).forEach(function(k){var n=NOTIONS.filter(function(x){return x.id===k;})[0];if(n)n.viz=VIZF[k];});
 
 
+/* ===== CLASSIFICATION DES PARTIS ===== */
+Object.assign(DEFS,{
+ "gauche-radicale":["Gauche radicale","Catégorie de science politique (Luke March) désignant les partis qui rejettent le capitalisme comme système mais acceptent la démocratie représentative et la voie électorale. À distinguer de l'extrême gauche révolutionnaire."],
+ "extreme-gauche":["Extrême gauche","Dans l'usage savant : courants révolutionnaires refusant la voie électorale et la démocratie libérale (trotskisme, communisme de conseils, courants insurrectionnels). Dans l'usage administratif et médiatique français, le terme est employé plus largement, ce qui nourrit la controverse."],
+ "nuances":["Nuances politiques","Étiquettes attribuées aux candidats par le ministère de l'Intérieur pour agréger les résultats électoraux. Elles ne sont ni choisies par les partis ni établies par des chercheurs : c'est une décision administrative, contrôlée par le juge."],
+ "ches":["Chapel Hill Expert Survey","Enquête internationale où des centaines de politologues positionnent les partis sur des axes (économique, culturel, européen). Référence académique la plus utilisée pour comparer les partis entre pays."],
+ "gal-tan":["Axe GAL-TAN","Second axe de classification, culturel : d'un pôle « vert, alternatif, libertaire » à un pôle « traditionnel, autoritaire, nationaliste ». Il complète l'axe économique gauche-droite, insuffisant à lui seul."],
+ "cordon-sanitaire":["Cordon sanitaire","Refus des autres partis de toute alliance avec une formation jugée hors du champ républicain. Son application, et donc la classification qui la fonde, a des conséquences électorales concrètes."]
+});
+
+NOTIONS.push(
+N("classification","hist","Classer les partis : gauche, gauche radicale, extrême gauche",
+"Qui décide de l'étiquette, selon quels critères — et pourquoi LFI fait débat.",
+"Il n'existe pas une classification, mais au moins trois, qui ne se recouvrent pas : celle des chercheurs, celle de l'administration et celle du débat public. Confondre les trois rend la discussion insoluble.",
+[["Le premier axe : l'économie","L'axe gauche-droite classique porte sur le rapport à la propriété, à la redistribution et au rôle de l'État. Il ne suffit plus : deux partis peuvent être proches économiquement et opposés sur l'immigration, l'écologie ou les mœurs."],
+ ["Le second axe : les valeurs","Les politologues croisent l'axe économique avec l'[[gal-tan|axe GAL-TAN]], qui va du pôle libertaire au pôle traditionnel-autoritaire. C'est cette grille que retient l'enquête de référence, la [[ches|Chapel Hill Expert Survey]], où des centaines de chercheurs positionnent chaque parti."],
+ ["Le critère décisif : le rapport à la démocratie représentative","C'est là que se joue la distinction entre radical et extrême. Le politologue Luke March a proposé la référence la plus utilisée : la <b>[[gauche-radicale|gauche radicale]]</b> rejette le capitalisme comme système mais accepte les élections, le pluralisme et l'alternance ; l'<b>[[extreme-gauche|extrême gauche]]</b> refuse la voie électorale et vise un renversement révolutionnaire. Le même raisonnement s'applique symétriquement à droite entre droite radicale et extrême droite."],
+ ["Les trois autres critères couramment retenus","Le rapport à la violence politique (la légitime-t-on comme moyen d'action ?), le rapport aux institutions (les réformer ou les abolir ?), et le rapport au pluralisme interne et externe (accepte-t-on la contradiction ?). Ces critères portent sur des comportements observables, pas sur l'intensité du discours."],
+ ["Les classifications administratives","En France, le ministère de l'Intérieur attribue des [[nuances|nuances politiques]] aux candidats pour agréger les résultats. Ce n'est ni un travail scientifique ni un choix des partis : c'est une décision administrative, prise par le pouvoir exécutif, susceptible de recours devant le juge. Le Conseil d'État a rappelé que cette pratique remonte au XIXe siècle."],
+ ["Pourquoi l'étiquette a des effets réels","Elle détermine la présentation des résultats électoraux, l'accès à certains dispositifs, le traitement médiatique et, indirectement, l'existence ou non d'un [[cordon-sanitaire|cordon sanitaire]]. C'est pourquoi les partis contestent ces classifications, et pourquoi leur attribution par l'exécutif est elle-même discutée."]],
+[["Référence académique","Chapel Hill Expert Survey (CHES)","CHES"],
+ ["Typologie de référence","Gauche radicale / extrême gauche (Luke March)","Science politique"],
+ ["Critère principal de distinction","Acceptation ou non de la voie électorale et du pluralisme","Science politique"],
+ ["Classification française","Nuances attribuées par le ministère de l'Intérieur","Circulaires"],
+ ["Groupe européen de LFI","The Left (GUE/NGL) au Parlement européen","Parlement européen"],
+ ["Auto-désignation de LFI","« Gauche radicale » ; rupture avec le capitalisme","LFI"]],
+[["Classer par le programme","Position de nombreux politologues : LFI relève de la gauche radicale — anticapitaliste, mais acceptant élections, alternances et institutions représentatives, qu'elle veut refonder par une constituante."],
+ ["Classer par les pratiques","Position retenue par le ministère de l'Intérieur en 2026 : la contestation de l'autorité judiciaire, les mises en cause de la police et les appels à la désobéissance civile marqueraient une évolution vers la radicalité."],
+ ["La critique de la méthode","Pour ses opposants, cette requalification relève d'un usage politique de l'étiquetage par l'exécutif, d'autant qu'elle intervient en période électorale. Le Conseil d'État a examiné la légalité de la décision, non sa validité scientifique : un juge tranche un recours, il n'arbitre pas un débat de science politique."]],
+[["Chapel Hill Expert Survey","https://www.chesdata.eu/"],
+ ["Vie publique — partis et vie politique","https://www.vie-publique.fr/"],
+ ["Conseil d'État","https://www.conseil-etat.fr/"],
+ ["Cairn — science politique","https://www.cairn.info/"],
+ ["The Conversation — partis politiques","https://theconversation.com/fr"]]));
+
+var EXC={
+ "classification":[
+  ["La requalification de 2026","Pour les municipales de 2026, le ministère de l'Intérieur a classé LFI à l'« extrême gauche » — une première depuis la création du mouvement en 2016 — et l'UDR à l'« extrême droite ». Le ministre a justifié la décision par la remise en cause de l'autorité judiciaire, les accusations visant la police et les appels à la désobéissance civile. Saisi de recours, le Conseil d'État n'a pas censuré la classification, en rappelant que l'attribution des nuances par le ministère est une tradition ancienne."],
+  ["Ce que le juge a tranché — et ce qu'il n'a pas tranché","Le Conseil d'État s'est prononcé sur la légalité d'une décision administrative, pas sur la nature politique d'un parti. Dire qu'un mouvement est « juridiquement d'extrême gauche » est un raccourci : le juge a constaté que l'administration n'avait pas commis d'illégalité en retenant cette étiquette, ce qui est différent d'une validation scientifique."],
+  ["Le désaccord des chercheurs","Les enquêtes académiques internationales positionnent généralement LFI à la gauche radicale plutôt qu'à l'extrême gauche, au motif qu'elle participe aux élections, siège au Parlement, exerce des mandats locaux et ne prône pas le renversement violent du régime. D'autres chercheurs soulignent que la stratégie de conflictualisation et le rapport aux institutions justifient une catégorie plus dure. Le débat est ouvert et porte sur les critères."],
+  ["Un précédent symétrique","La question s'est posée dans les mêmes termes, en sens inverse, pour le RN : longtemps classé à l'extrême droite, il a contesté cette étiquette au nom de sa participation aux institutions. Les critères invoqués par chacun varient selon qu'ils s'appliquent à soi ou à l'adversaire — raison de plus pour s'en tenir à des critères explicites."],
+  ["L'usage courant, encore différent","Dans le langage médiatique, « extrême » désigne souvent l'intensité du discours ou la place dans l'hémicycle, sans référence à un critère théorique. C'est cet usage, le plus répandu, qui alimente le plus de confusions."]]
+};
+Object.keys(EXC).forEach(function(k){var n=NOTIONS.filter(function(x){return x.id===k;})[0];if(n)n.ex=EXC[k];});
+
+
 /* ---------- utilitaires ---------- */
 function typo(s){return (s||'').replace(/ ([;:!?%\u00BB])/g,'\u00A0$1').replace(/(\u00AB) /g,'$1\u00A0').replace(/(\d) (\d{3})/g,'$1\u00A0$2').replace(/(\d) (M|Md|k|TWh|Mt|g|ha|km|\u20AC|°C)/g,'$1\u00A0$2');}
 function esc(s){return typo((s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"));}
@@ -3495,6 +3541,7 @@ function pageNotions(){
   '<h1>Notions clés</h1><p class="lead">Les notions les plus discutées du d\u00e9bat public, celles o\u00f9 l\'information circule mal : ce qu\'elles signifient vraiment, les chiffres \u00e0 conna\u00eetre, et les termes du d\u00e9saccord \u2014 sans trancher \u00e0 votre place.</p>'+
   blocks+'</div>';
 }
+function notionsOrdered(){var out=[];NCATS.forEach(function(c){NOTIONS.forEach(function(n){if(n.cat===c[0])out.push(n);});});NOTIONS.forEach(function(n){if(out.indexOf(n)<0)out.push(n);});return out;}
 function pageNotion(id){
  var n=NOTIONS.filter(function(x){return x.id===id;})[0];
  if(!n)return pageNotions();
@@ -3515,9 +3562,11 @@ function pageNotion(id){
    n.debat.map(function(d){return '<div class="dbt"><div class="dbh">'+esc(d[0])+'</div><div>'+P(d[1])+'</div></div>';}).join('')+'</div>'):'';
  var src=n.src.length?('<div class="srcbox" id="sec-src"><div class="bh">Sources &amp; pour approfondir</div><ol>'+
    n.src.map(function(s){return '<li><a href="'+s[1]+'" target="_blank" rel="noopener">'+esc(s[0])+'</a></li>';}).join('')+'</ol></div>'):'';
- var idx=NOTIONS.map(function(x){return x.id;}).indexOf(id);
- var pv=idx>0?NOTIONS[idx-1]:null,nx=idx<NOTIONS.length-1?NOTIONS[idx+1]:null;
- var pager='<div class="pager">'+(pv?'<a onclick="go(\'#/notion/'+pv.id+'\')"><div class="dir">\u2190 Notion pr\u00e9c\u00e9dente</div><div class="nm">'+esc(pv.t)+'</div></a>':'<span></span>')+(nx?'<a class="nx" onclick="go(\'#/notion/'+nx.id+'\')"><div class="dir">Notion suivante \u2192</div><div class="nm">'+esc(nx.t)+'</div></a>':'<span></span>')+'</div>';
+ var ORD=notionsOrdered();
+ var idx=ORD.map(function(x){return x.id;}).indexOf(id);
+ var pv=idx>0?ORD[idx-1]:null,nx=idx<ORD.length-1?ORD[idx+1]:null;
+ var catn=function(x){var c=NCATS.filter(function(y){return y[0]===x.cat;})[0];return c?esc(c[1]):'';};
+ var pager='<div class="pager">'+(pv?'<a onclick="go(\'#/notion/'+pv.id+'\')"><div class="dir">\u2190 '+catn(pv)+'</div><div class="nm">'+esc(pv.t)+'</div></a>':'<span></span>')+(nx?'<a class="nx" onclick="go(\'#/notion/'+nx.id+'\')"><div class="dir">'+catn(nx)+' \u2192</div><div class="nm">'+esc(nx.t)+'</div></a>':'<span></span>')+'</div>';
  return '<div class="wrap page"><div class="crumb"><a onclick="go(\'#/\')">Accueil</a> \u203a <a onclick="go(\'#/notions\')">Notions</a> \u203a '+esc(n.t)+'</div>'+
   '<div class="kicker">'+esc(cat?cat[1]:'')+'</div><h1 style="color:'+col+'">'+esc(n.t)+'</h1>'+
   '<div class="block b-man" style="margin:18px 0"><div class="bh">Le n\u0153ud du probl\u00e8me</div>'+P(n.noeud)+'</div>'+
