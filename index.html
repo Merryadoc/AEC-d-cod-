@@ -195,10 +195,15 @@ footer .maj{font-family:var(--mono);font-size:11.5px;color:var(--mut);margin-top
 .idee .go{display:inline-block;margin-top:8px;font-family:var(--mono);font-size:12px;color:var(--opp);cursor:pointer}
 .mq ul a.go{font-family:var(--sans);font-size:14px;color:var(--ink);cursor:pointer;text-decoration:none;border-bottom:1px solid var(--line2)}
 .mq ul a.go:hover{color:var(--chi);border-color:var(--chi)}
+/* --- largeur de lecture centrée --- */
+:root{--maxw:1120px;--read:920px}
+.page{max-width:var(--read);margin-left:auto;margin-right:auto}
+.hero{max-width:var(--read)}
+.wrap>h1,.wrap>h2,.wrap>p{max-width:var(--read);margin-left:auto;margin-right:auto}
 /* --- lisibilité --- */
 body{hyphens:none;-webkit-hyphens:none;text-rendering:optimizeLegibility}
 p,li,.spi,.exi>div,.dbt>div,.block,.ms,.nx{overflow-wrap:break-word;word-break:normal}
-.page p,.page li{max-width:74ch}
+
 .spart p{font-size:16.5px;line-height:1.72;color:var(--ink2);margin:.6em 0}
 .spart h2{margin-top:0}
 .spart{margin:26px 0;border-top:1px solid var(--line);padding-top:22px}
@@ -391,6 +396,118 @@ mark.hl{background:#fde68a;padding:0 2px;border-radius:2px}
  nav.main a{padding:11px 12px}
  .top .wrap{height:54px}
  .hsearch{width:96px}.hsearch:focus{width:120px}
+}
+
+/* ================= MOBILE : respiration ================= */
+@media(max-width:680px){
+ /* --- texte plus grand et plus aéré --- */
+ body{font-size:16.5px;line-height:1.68}
+ .wrap{padding:0 21px}
+ .page{padding:22px 0 70px}
+ h1{font-size:clamp(27px,7.2vw,34px);line-height:1.2;margin:.15em 0 .45em}
+ h2{line-height:1.25}
+ .lead{font-size:17px;line-height:1.68}
+ .spart p,.page p{font-size:16.5px;line-height:1.72}
+ .spart{margin:34px 0;padding-top:26px}
+ .spart h2{font-size:20px;margin-bottom:.5em}
+ p{margin:.85em 0}
+
+ /* --- respiration entre les blocs --- */
+ .block{padding:16px 17px;margin-top:18px;border-radius:12px}
+ .block .bh{font-size:11.5px;margin-bottom:9px}
+ .exi,.dbt{margin:16px 0}
+ .exi:first-of-type,.dbt:first-of-type{margin-top:8px}
+ .exh,.dbh{font-size:16px;margin-bottom:5px;line-height:1.35}
+ .exi>div:last-child,.dbt>div:last-child{font-size:15.5px;line-height:1.68}
+
+ /* --- mesures dépliables : plus de place au doigt --- */
+ .mez{margin:16px 0;border-radius:13px}
+ .mez>button{padding:18px 17px;gap:12px;align-items:flex-start}
+ .mez .mt{font-size:17.5px;line-height:1.35}
+ .mez .ms{font-size:14.5px;line-height:1.55;margin-top:5px}
+ .mez .body{padding:0 17px 20px}
+ .mez .mi{padding:3px 9px}
+
+ /* --- cartes : plus d'air interne --- */
+ .ncard,.gitem,.idee,.ent,.chap,.ej,.cle,.vizbox,.srcbox,.mq,.frd{padding:18px 19px;border-radius:13px}
+ .ngrid,.clegrid,.srclist,.enjeux,.chaps,.entrees,.legend{gap:14px}
+ .ncard .nt,.gitem .gt{font-size:17px;margin-bottom:7px}
+ .ncard .nx,.gitem .gd{font-size:14.5px;line-height:1.6}
+ .idee{margin:16px 0}
+ .ideeq{font-size:17.5px;line-height:1.35;margin-bottom:10px}
+ .ideet{font-size:15.5px;line-height:1.7}
+ .cle{padding:16px 18px}
+ .cle .clev{font-size:24px}
+ .cle .clel{font-size:15px;margin-top:6px}
+ .cle .cled{font-size:13.5px;line-height:1.55;margin-top:5px}
+
+ /* --- sommaire --- */
+ .toc{padding:16px 18px;margin:20px 0 8px;border-radius:13px}
+ .toc li{font-size:15px;margin:7px 0;line-height:1.45}
+ .toc ol{padding-left:20px}
+
+ /* --- graphiques : label au-dessus de la barre --- */
+ .vrow{display:grid;grid-template-columns:1fr auto;grid-template-areas:"lab val" "bar bar";gap:4px 10px;margin:13px 0}
+ .vlab{grid-area:lab;flex:none;text-align:left;font-size:14px;line-height:1.4}
+ .vval{grid-area:val;flex:none;width:auto;font-size:13px;text-align:right}
+ .vbarw{grid-area:bar;height:13px}
+ .vizt{font-size:16.5px;line-height:1.35;margin-bottom:14px}
+ .vsrc{font-size:11.5px;line-height:1.5;margin-top:14px}
+
+ /* --- sources et frise --- */
+ .srcbox li{font-size:14.5px;line-height:1.6;margin:9px 0}
+ .srcitem{padding:14px 15px}
+ .srcitem .sn{font-size:15px}
+ .fr{gap:10px;margin-bottom:16px}
+ .fra{flex:0 0 46px;font-size:11.5px;padding-top:17px}
+ .frt{font-size:16.5px;line-height:1.35}
+ .frx{font-size:14.5px;line-height:1.65;margin-top:5px}
+
+ /* --- accueil --- */
+ .statline{gap:22px 30px;padding:20px 0;margin-top:24px}
+ .stat b{font-size:25px}
+ .stat span{font-size:13.5px}
+ .ent{padding:19px 20px}
+ .ent .et{font-size:19px;margin:11px 0 6px}
+ .ent .ex{font-size:14.5px;line-height:1.6}
+ .ej h3{font-size:20px}
+ .ej p{font-size:14.5px;line-height:1.6}
+ .ej .cn{margin-top:14px}
+ .legend div{padding:16px 18px}
+ .legend p{font-size:14px;line-height:1.6}
+ .note{padding:16px 18px;font-size:14.5px;line-height:1.68;border-radius:12px}
+ .resume{padding:18px 19px}
+ .resume li{font-size:14.5px;margin:.35em 0}
+
+ /* --- en-tête : cible tactile plus large --- */
+ .top .wrap{height:58px;gap:10px}
+ .brand{font-size:17px}
+ .iconbtn{padding:9px 12px}
+ nav.main a{padding:13px 14px;font-size:15px}
+ .navg .sub a{padding:11px 14px;font-size:14.5px}
+
+ /* --- pied de page et pager --- */
+ .pager{flex-direction:column;gap:10px;margin-top:30px;padding-top:22px}
+ .pager a{padding:15px 17px}
+ .pager .nx{text-align:left}
+ footer{padding:28px 0}
+ footer .fnav{gap:12px 16px;margin-bottom:14px}
+ footer .fnav a{font-size:14px}
+
+ /* --- tableaux de chiffres --- */
+ .b-chi tr{padding:9px 0}
+ .b-chi td{font-size:14.5px;line-height:1.55}
+ .b-chi td.csrc{font-size:11.5px;margin-top:4px}
+ .opp-row{margin:11px 0;font-size:15px;line-height:1.6}
+ .opp-row .p{width:70px}
+ .b-man li{font-size:14.5px;line-height:1.62;margin:.45em 0}
+ .b-man ul{padding-left:20px}
+}
+@media(max-width:400px){
+ .wrap{padding:0 17px}
+ .vlab{font-size:13.5px}
+ .fra{flex:0 0 42px}
+ .statline{gap:18px 24px}
 }
 </style>
 </head>
@@ -3398,6 +3515,100 @@ var EXC={
   ["L'usage courant, encore différent","Dans le langage médiatique, « extrême » désigne souvent l'intensité du discours ou la place dans l'hémicycle, sans référence à un critère théorique. C'est cet usage, le plus répandu, qui alimente le plus de confusions."]]
 };
 Object.keys(EXC).forEach(function(k){var n=NOTIONS.filter(function(x){return x.id===k;})[0];if(n)n.ex=EXC[k];});
+
+
+/* ===== NOTION : annuler la dette détenue par la banque centrale ===== */
+Object.assign(DEFS,{
+ "eurosysteme":["Eurosystème","La Banque centrale européenne et les banques centrales nationales de la zone euro. Quand la BCE achète de la dette française, c'est la Banque de France qui la porte à son bilan, pour son compte."],
+ "marche-secondaire":["Marché secondaire","Marché où s'échangent des titres déjà émis, entre investisseurs. La BCE n'a pas le droit d'acheter directement à l'État (marché primaire) : elle achète sur le marché secondaire, ce qui a permis de juger ses programmes conformes aux traités."],
+ "dette-perpetuelle":["Dette perpétuelle","Titre sans date de remboursement : l'emprunteur verse des intérêts indéfiniment, ou aucun si le taux est nul. Convertir une dette en dette perpétuelle à taux zéro équivaut économiquement à l'annuler, sans la supprimer juridiquement."],
+ "dette-brute":["Dette brute (Maastricht)","Norme européenne de mesure de la dette : elle additionne tous les engagements sans les compenser par les actifs publics ni consolider ce que l'État doit à sa propre banque centrale. C'est ce choix comptable qui donne son enjeu au débat sur l'annulation."],
+ "oati":["OAT indexées (OATi)","Obligations dont le capital et les intérêts suivent l'inflation. Elles protègent le créancier de l'érosion monétaire — et coûtent donc davantage à l'État en période d'inflation."],
+ "circuit-tresor":["Circuit du Trésor","Système en vigueur en France jusqu'aux années 1970 : banques et institutions publiques étaient tenues de placer une part de leurs fonds en titres d'État, assurant un financement stable hors marchés."]
+});
+
+NOTIONS.push(
+N("annulation-dette","eco","Annuler la dette détenue par la banque centrale",
+"469 Md€, « un simple jeu d'écriture » ? Ce que recouvrent vraiment les trois versions de la proposition.",
+"L'idée paraît magique : l'État doit de l'argent à sa propre banque centrale, il suffirait d'effacer la ligne. Le circuit interne est réel, et l'argument mérite mieux que le mépris. Mais trois propositions très différentes circulent sous le même mot, et elles n'ont ni les mêmes effets ni les mêmes obstacles.",
+[["Le point de départ : un circuit largement interne","Entre 2015 et 2022, la BCE a acheté massivement des titres publics sur le [[marche-secondaire|marché secondaire]], via les banques centrales nationales. La Banque de France en détient ainsi environ 469 Md€, soit près de 18 % de la dette de l'État. Or l'État est l'actionnaire unique de la Banque de France : les intérêts qu'il lui verse lui reviennent, en temps normal, sous forme de dividendes et d'impôt. C'est le fondement de l'argument « nous nous devons cet argent à nous-mêmes » — et il est exact."],
+ ["Version 1 : l'annulation pure","Effacer les titres du bilan de la banque centrale. C'est la version la plus radicale et la plus contestée juridiquement. Elle laisserait la Banque de France avec des fonds propres négatifs : techniquement possible pour une banque centrale, qui ne peut pas faire faillite, mais posant la question de sa recapitalisation — par l'État, seul actionnaire."],
+ ["Version 2 : le gel, ou la dette perpétuelle à taux nul","Ne pas supprimer la créance, mais en supprimer l'échéance et le coût ([[dette-perpetuelle|dette perpétuelle]]). C'est la formulation la plus fréquente depuis 2020, reprise sous l'image de la « mise au congélateur », proposée à l'échelle européenne et en commençant par les dettes du Covid. Juridiquement moins frontale, elle produit un effet économique voisin."],
+ ["Version 3 : l'audit puis le réaménagement négocié","C'est ce qu'écrit le programme lui-même : réaliser un audit citoyen pour déterminer une part jugée illégitime, puis préparer un réaménagement négocié. Ce n'est pas une annulation unilatérale mais une renégociation, dont l'issue dépend des créanciers. Le titre du chapitre est plus radical que les mesures qu'il contient."],
+ ["Ce que l'opération changerait — et ne changerait pas","Sur les flux de trésorerie : presque rien, puisque les intérêts reviennent déjà à l'État. Sur le stock affiché : beaucoup, car la [[dette-brute|dette au sens de Maastricht]] compte les titres détenus par la banque centrale comme les autres — d'où un gain de plusieurs points de PIB, réel dans le cadre des règles européennes. C'est tout le paradoxe : l'effet principal serait comptable, ce qui ne veut pas dire négligeable."],
+ ["Les obstacles","Juridique d'abord : l'article 123 du traité interdit le financement monétaire des États, et une annulation rétroactive risquerait cette requalification ; à défaut, il faudrait réviser les traités, donc obtenir l'unanimité des Vingt-Sept puis une ratification nationale dans chaque pays. Institutionnel ensuite : la décision ne relève ni du gouvernement français ni de la seule Banque de France, mais de l'Eurosystème. Économique enfin : le vrai enjeu n'est pas le stock ancien mais la capacité à placer plusieurs centaines de milliards d'émissions nouvelles chaque année, auprès de créanciers dont plus de la moitié sont non-résidents."],
+ ["Un élément d'actualité qui déplace le débat","Depuis janvier 2025, l'Eurosystème ne réinvestit plus les titres arrivant à échéance : la part qu'il détient se réduit d'elle-même, mois après mois. Le « gel de fait » que constituait le réinvestissement perpétuel a donc cessé — ce qui rend la proposition à la fois plus urgente pour ses partisans, et plus difficile à mettre en œuvre."]],
+[["Détention par la Banque de France","≈ 469 Md€, soit ≈ 18 % de la dette de l'État","AFP / Banque de France, mai 2026"],
+ ["Rapporté à la dette publique totale","≈ 13 % (3 536 Md€ au 1er trimestre 2026)","INSEE"],
+ ["Part de l'Eurosystème dans les OAT","Près d'un quart","Sénat"],
+ ["Détenteurs non-résidents","≈ 56 % de la dette négociable de l'État","Banque de France"],
+ ["Réinvestissement des titres échus","Arrêté depuis janvier 2025","Sénat / BCE"],
+ ["Base juridique en cause","Article 123 du TFUE","Traité"],
+ ["Révision des traités","Unanimité des 27 + ratifications nationales","TUE, art. 48"]],
+[["Pour","L'argent est dû à nous-mêmes ; l'annulation libérerait des marges budgétaires bloquées par une convention comptable. Ses défenseurs y voient un moyen de sortir de la dépendance aux marchés financiers, et la proposition a le mérite de rouvrir ce débat."],
+ ["Contre","L'opération ne peut être réduite à un jeu d'écriture sans conséquence : elle suppose une révision des traités, et un précédent d'effacement pourrait renchérir les emprunts futurs. Les objections viennent du gouvernement comme du RN."],
+ ["Le contre-exemple souvent invoqué","La Réserve fédérale américaine n'a pas annulé les titres qu'elle détient : elle les conserve et réinvestit les montants échus. C'est un maintien hors marché, proche du gel, mais sans annulation formelle — et dans un cadre juridique différent de celui de la BCE."],
+ ["Ce que le débat oublie","Aucune des options n'est sans risque, et le point décisif reste la trajectoire des finances publiques, pas le seul stock de dette."]],
+[["Programme 2025 — chapitre 6, « Refuser le chantage »","https://melenchon2027.fr/programme2025/livre/chapitre6/s4/"],
+ ["Sénat — structure de détention de la dette de l'État","https://www.senat.fr/rap/r24-902/r24-902_mono.html"],
+ ["Banque de France — détention de titres français","https://www.banque-france.fr/"],
+ ["Public Sénat — les difficultés de l'annulation partielle","https://www.publicsenat.fr/actualites/politique/dette-publique-la-piste-dune-annulation-partielle-defendue-par-jean-luc-melenchon-se-heurte-a-de-nombreuses-difficultes"],
+ ["Franceinfo — cinq questions sur le gel de la dette","https://www.franceinfo.fr/economie/crise/crise-de-la-dette/cinq-questions-sur-la-proposition-de-jean-luc-melenchon-de-geler-une-partie-de-la-dette-francaise_8160833.html"],
+ ["INSEE — dette publique","https://www.insee.fr/"]]));
+
+var EXA={"annulation-dette":[
+ ["Ce que dit le programme, et ce que disent les discours","Le chapitre s'intitule « Refuser le chantage : annuler la dette publique », mais les mesures listées parlent de rachat par la BCE, d'autorisation de découvert, de [[circuit-tresor|circuit du Trésor]], d'audit citoyen et de réaménagement négocié. L'écart entre un titre programmatique et le contenu technique des mesures est fréquent dans tous les programmes : il vaut la peine de lire les deux."],
+ ["L'appel des économistes de 2021","Un collectif international avait proposé d'annuler la dette détenue par la BCE en échange d'un engagement d'investissement écologique équivalent. La BCE a répondu que l'opération violerait le traité. Le débat n'est donc pas marginal : il traverse la profession économique."],
+ ["La Grèce, un précédent qui ne colle pas","La restructuration grecque des années 2010 a porté sur des créanciers privés, avec décote imposée, dans le cadre d'un plan d'austérité. C'est une logique inverse de celle proposée ici, qui vise des titres détenus par la banque centrale elle-même. Comparer les deux induit en erreur."],
+ ["L'inflation, l'annulation silencieuse","Entre 2021 et 2024, la poussée inflationniste a réduit la valeur réelle de la dette existante bien plus efficacement qu'aucune annulation — sans débat, sans traité à réviser, et aux dépens des épargnants détenteurs d'obligations. C'est la voie historique de réduction des dettes publiques après 1945."],
+ ["Le coût des OAT indexées","Le programme propose de cesser d'émettre des [[oati|OAT indexées sur l'inflation]]. C'est une mesure cohérente avec le constat précédent : ces titres neutralisent précisément le mécanisme par lequel l'inflation allège la dette, puisqu'ils protègent le créancier."]]};
+Object.keys(EXA).forEach(function(k){var n=NOTIONS.filter(function(x){return x.id===k;})[0];if(n)n.ex=EXA[k];});
+
+var VIZA={"annulation-dette":[
+ {t:"Qui détient la dette de l'État français (%)",fmt:"%v %",src:"Sources : Banque de France, Sénat, AFP (2026). Ordres de grandeur.",
+  rows:[["Non-résidents",56,1],["Résidents (banques, assureurs, épargne)",26,0],["Banque de France pour la BCE",18,1]]},
+ {t:"Ce que représenterait l'annulation (Md€)",fmt:"%v Md",src:"Sources : INSEE (dette totale), AFP/Banque de France (détention BdF), mai 2026.",
+  rows:[["Dette publique totale",3536,0],["Dette de l'État",2613,0],["Détenue par la Banque de France",469,1]]}]};
+Object.keys(VIZA).forEach(function(k){var n=NOTIONS.filter(function(x){return x.id===k;})[0];if(n)n.viz=VIZA[k];});
+
+/* renvoi depuis la mesure du programme */
+if(typeof LIENS!=='undefined'){LIENS["m-s6d-a"]=[["s6a","La sortie de la dette des marchés suppose de mettre au pas la finance."],["s17a","L'opération dépend du cadre européen : elle relève du plan A ou du plan B."]];}
+
+
+/* ===== Enrichissement : le déficit stabilisant ===== */
+Object.assign(DEFS,{
+ "deficit-stabilisant":["Déficit stabilisant","Niveau de déficit qui maintient le ratio dette/PIB constant, sans rien rembourser. Il dépend de la dette existante et de la croissance nominale : plus la croissance est forte, plus le déficit tolérable est élevé."],
+ "croissance-nominale":["Croissance nominale","Croissance du PIB en valeur, c'est-à-dire croissance réelle plus inflation. C'est elle qui compte pour le ratio dette/PIB, puisque la dette est libellée en euros courants."],
+ "effet-boule-neige":["Effet boule de neige","Situation où le taux d'intérêt payé sur la dette dépasse la croissance nominale : la dette s'auto-alimente par ses seuls intérêts, même sans nouveau déficit primaire."],
+ "regle-or":["Règle d'or budgétaire","Principe limitant l'endettement au financement de l'investissement, la dépense courante devant être couverte par les recettes. Appliqué aux collectivités locales françaises, il ne l'est pas à l'État."]
+});
+
+(function(){
+ var n=NOTIONS.filter(function(x){return x.id==='deficit';})[0];
+ if(!n)return;
+ n.comprendre.splice(4,0,
+  ["Le déficit stabilisant : pourquoi réduire le déficit sans rembourser",
+   "C'est la clé du débat, et elle est arithmétique. Ce qui compte n'est pas le stock en euros mais son rapport au PIB, lequel dépend de trois variables : le déficit, la [[croissance-nominale|croissance nominale]] et le taux d'intérêt. Il existe donc un niveau de déficit qui <b>stabilise</b> le ratio sans rembourser un euro : avec une dette à 115 % du PIB et une croissance nominale de 3 %, ce [[deficit-stabilisant|déficit stabilisant]] se situe autour de 3,4 % du PIB. En dessous, le ratio baisse mécaniquement ; au-dessus, il monte. À 5,1 %, la France est au-dessus : la dette croît plus vite que l'économie."],
+  ["D'où vient le « 3 % » de Maastricht",
+   "Ce n'est pas un chiffre magique mais le même calcul, fait avec les paramètres des années 1990 : avec 60 % de dette et 5 % de croissance nominale attendue, 3 % de déficit stabilisait le ratio. Les paramètres ont changé — dette plus élevée, croissance plus faible — ce qui rend la règle largement obsolète dans sa forme, sans invalider le raisonnement qui l'a produite."],
+  ["Les trois raisons de réduire le déficit, aucune n'étant le remboursement",
+   "D'abord, <b>la charge d'intérêts évince d'autres dépenses</b> : de l'ordre de 50 à 60 Md€ par an qui ne financent ni école, ni hôpital, ni rénovation — le seul poste budgétaire qui ne produit aucun service public. Ensuite, <b>la dépendance au marché</b> : plus le déficit est élevé, plus il faut émettre chaque année, et plus un choc de taux coûte cher. Enfin, et c'est l'argument le plus solide, <b>la capacité à encaisser la prochaine crise</b> : la France a pu absorber le Covid par la dette ; si le déficit est déjà élevé en période normale, cette marge n'existe plus."],
+  ["L'objection : la composition compte plus que le montant",
+   "Un déficit qui finance un investissement rentable — rail, rénovation thermique, formation — crée un actif ; un déficit qui finance une dépense courante permanente ne laisse rien. Or la comptabilité publique ne distingue pas les deux. C'est ce qui fonde la proposition d'une [[regle-or|règle d'or]] limitant l'endettement à l'investissement, appliquée aux collectivités locales mais pas à l'État. Corollaire pratique : couper l'investissement est la façon la plus rapide d'améliorer un solde à court terme, et la plus coûteuse à long terme."],
+  ["L'effet boule de neige, le vrai point de bascule",
+   "Si le taux d'intérêt moyen payé sur la dette dépasse durablement la croissance nominale, la dette s'auto-alimente par ses seuls intérêts, même avec un budget équilibré hors intérêts. C'est l'[[effet-boule-neige|effet boule de neige]]. À l'inverse, tant que la croissance nominale dépasse le taux, un déficit modéré reste soutenable indéfiniment. C'est pourquoi la remontée des taux depuis 2022 change la donne bien plus que le niveau du stock."]);
+ n.chiffres.push(["Déficit stabilisant (ordre de grandeur)","≈ 3,4 % du PIB à 115 % de dette et 3 % de croissance nominale","Calcul"],
+  ["Origine du critère de Maastricht","60 % de dette et 5 % de croissance nominale → 3 % de déficit","Traité"],
+  ["Dernier excédent budgétaire français","1974","Historique"]);
+ n.debat.push(["La composition plutôt que le montant","Position d'une partie des économistes : distinguer dépense courante et investissement, plutôt que fixer un seuil unique de déficit."]);
+ n.ex=(n.ex||[]).concat([
+  ["La Grèce, le cas d'école de l'ajustement trop rapide","Une consolidation budgétaire brutale a fait chuter le PIB si fortement que le ratio dette/PIB a <i>augmenté</i> malgré les économies réalisées. L'arithmétique du ratio ne dépend pas que du numérateur."],
+  ["Les collectivités locales et la règle d'or","Communes et départements ne peuvent pas emprunter pour financer leur fonctionnement, seulement pour investir. L'État, lui, n'est soumis à aucune règle de ce type — une asymétrie rarement relevée dans le débat sur la « dépense publique »."],
+  ["2020 : la démonstration de la marge de manœuvre","Le déficit a bondi à près de 9 % du PIB pour absorber le choc du Covid, sans crise de financement. C'est l'argument central de ceux qui veulent reconstituer cette capacité avant le prochain choc."]]);
+ n.viz=(n.viz||[]).concat([{t:"Déficit : au-dessus ou en dessous du seuil de stabilisation (% du PIB)",fmt:"%v %",
+   src:"Calcul à partir d'une dette de 115 % du PIB et d'une croissance nominale de 3 %. Au-dessus du seuil, le ratio dette/PIB augmente.",
+   rows:[["Déficit français 2025",5.1,1],["Seuil de stabilisation du ratio",3.4,1],["Règle européenne",3.0,0]]}]);
+})();
 
 
 /* ---------- utilitaires ---------- */
